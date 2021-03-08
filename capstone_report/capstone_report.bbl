@@ -48,22 +48,4 @@ D.~Jedamski, ``Bias/variance tradeoff - applied machine learning: Foundations.
   \url{https://www.linkedin.com/learning/appliedmachine-learning-foundations/bias-variance-tradeoff?u=2129308},
   2019.
 
-\bibitem{Justsajid}
-S.~Khan, ``Understanding machine learning methodology.'' Available at
-  \url{http://justsajid.com/skills/datascience/understanding-machine-learningmethodology/
-  }, 2020.
-
-\bibitem{deepsense}
-P.~Migdal, ``Keras or pytorch as your first deep learning framework..''
-  Available at \url{https://deepsense.ai/keras-or-pytorch/ }, 2020.
-
-\bibitem{sires}
-E.~Sires, ``9 ways to prevent data bias in predictive models.,'' 2020.
-
-\bibitem{gupta}
-R.~Gupta, ``Machine learning security: 3 risks to be aware of. techcentre..''
-  Available at
-  \url{https://www.plugandplaytechcenter.com/resources/machine-learning-security-3-
-  risks-be-aware/ }, n.d.
-
 \end{thebibliography}

@@ -229,6 +229,7 @@ INPUT ./images/ML_algorithms.png
 INPUT /home/ajal/git/capstone/capstone_report/./images/smart_monitoring_algorithms.png
 INPUT ./images/smart_monitoring_algorithms.png
 INPUT ./images/smart_monitoring_algorithms.png
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /home/ajal/git/capstone/capstone_report/capstone_report.bbl
 INPUT /home/ajal/git/capstone/capstone_report/capstone_report.bbl
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm

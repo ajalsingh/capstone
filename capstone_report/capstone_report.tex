@@ -204,6 +204,51 @@ The two unreliability factors discussed in the above experiments are concerned m
 A major reliability issue within reinforcement learning models is reward hacking. 
 We will perform a systematic literature review on applications and known causes of unreliability due to reward hacking as well as potential solutions.
 
+%% Suitable Algorithm Selection
+\chapter{Suitable Algorithm Selection}
+\section{Dataset}
+The predictive maintenance dataset will be used again to classify failures of an ioT gadget.
+During one week, maintenance data was collected from six devices every hour for 168 hrs.
+Therefore, this data set contains 1008 rows of data. 
+Each cycle of data reading contains the following measurements: 
+
+\begin{table}[ht]
+    \begin{center}
+        \caption{Measurements Dataset} 
+        \begin{tabular}{ l|l } 
+         \hline
+         \textbf{Measurement} & \textbf{Description} \\  [0.5ex] 
+         \hline
+         \textbf{Measurement Time} & Time \\
+         \textbf{Gadget ID} & Device number \\
+         \textbf{Vibration x sensor} & Horizontal vibration \\ 
+         \textbf{Vibration y sensor} & Vertical vibration \\ 
+         \textbf{pressure sensor} & Hose pressure \\
+         \textbf{Temperature sensor} & Internal temperature \\
+         \hline
+        \end{tabular}
+    \end{center}
+\end{table}
+
+The failures dataset contains the precise times each gadget failed. 
+During the course of the week, 105 failures were recorded.
+Device failure is to be classified when the time remaining to device failure is less than one hour.
+
+\hyperlink{gitub repo}{https://github.com/Unikie/predictive-maintenance-tutorial}
+
+\section{Algorithms}
+\subsection{Support Vector Machines}
+\subsection{k-Nearest Neighbours}
+k-Nearst Neighbours (k-NN) is a common approach to classification problems. 
+This approach classifies objects based on the compuatational distances between samples/values.
+
+
+\subsection{Decision Trees}
+\subsection{Random Forest}
+
+\section{Results}
+\section{Recommendations}
+
 
 %% Bibliography
 \renewcommand{\bibname}{References}

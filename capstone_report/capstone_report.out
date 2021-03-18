@@ -7,3 +7,12 @@
 \BOOKMARK [1][-]{section.2.1}{Label Bias and Environmental Datashift}{chapter.2}% 7
 \BOOKMARK [1][-]{section.2.2}{Suitable Algorithm Selection}{chapter.2}% 8
 \BOOKMARK [1][-]{section.2.3}{Reward Hacking}{chapter.2}% 9
+\BOOKMARK [0][-]{chapter.3}{Suitable Algorithm Selection}{}% 10
+\BOOKMARK [1][-]{section.3.1}{Dataset}{chapter.3}% 11
+\BOOKMARK [1][-]{section.3.2}{Algorithms}{chapter.3}% 12
+\BOOKMARK [2][-]{subsection.3.2.1}{Support Vector Machines}{section.3.2}% 13
+\BOOKMARK [2][-]{subsection.3.2.2}{k-Nearest Neighbours}{section.3.2}% 14
+\BOOKMARK [2][-]{subsection.3.2.3}{Decision Trees}{section.3.2}% 15
+\BOOKMARK [2][-]{subsection.3.2.4}{Random Forest}{section.3.2}% 16
+\BOOKMARK [1][-]{section.3.3}{Results}{chapter.3}% 17
+\BOOKMARK [1][-]{section.3.4}{Recommendations}{chapter.3}% 18

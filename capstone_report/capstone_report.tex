@@ -28,6 +28,8 @@
 \usepackage[parfill]{parskip}
 \usepackage{hyperref}
 \setlength{\footskip}{45pt}
+\setcounter{secnumdepth}{3}
+\newcommand{\R}{\mathbb{R}}
 
 \graphicspath{ {./images/} }
 \hypersetup{
@@ -204,6 +206,9 @@ The two unreliability factors discussed in the above experiments are concerned m
 A major reliability issue within reinforcement learning models is reward hacking. 
 We will perform a systematic literature review on applications and known causes of unreliability due to reward hacking as well as potential solutions.
 
+%% Label Bias and Environmental Datashift
+\chapter{Label Bias and Environmental Datashift}
+
 %% Suitable Algorithm Selection
 \chapter{Suitable Algorithm Selection}
 \section{Dataset}
@@ -234,21 +239,90 @@ The failures dataset contains the precise times each gadget failed.
 During the course of the week, 105 failures were recorded.
 Device failure is to be classified when the time remaining to device failure is less than one hour.
 
+For more information on the dataset and use case, please see []
 \hyperlink{gitub repo}{https://github.com/Unikie/predictive-maintenance-tutorial}
 
 \section{Algorithms}
 \subsection{Support Vector Machines}
+Support Vector Machines (SVM) is a common supervised machine learning algorithm for both classification and regression tasks.
+A key attribute of SVMs is its high accuracy and precision in thge segregation of classes.
+SVMs create $n$-dimensional hyperplanes to segregate datapoints into $n$ number of classes/groups. 
+The algorithm aims to achieve the maximum margin between support vecotrs(closest points), i.e. maximise the minimum margin.
+
+In the case where two classes can be linearly seperated, we consider the following as a representation of a dataset, $S$.
+\begin{equation}
+    S = \Big\{x_i \in \R^{1 \times p}, y_i \in \{-1, 1\}\Big\}^n_{i=1}
+\end{equation}
+
+The values $\{-1, 1\}$ represent two classes of data, $A$ and $B$,
+\begin{equation}
+    y_i = \begin{cases}
+        1, & \text{if $i$} \text{-th sample} \in  A\\
+        -1, & \text{if $i$} \text{-th sample} \in  B.
+    \end{cases}
+\end{equation}
+
+The hyperplane can then be defined as $F_0$ in $\R^D$ space as,
+\begin{equation}
+    F_0 = \big \{x|f(x) = x \beta + \beta_0 = 0 \big \} 
+\end{equation}  
+where, 
+$\beta \in \R^D$ with norm $||\beta|| = 1$
+
+For a new sample $x^{new}$ which is not within dataset $S$,
+\begin{equation}
+    y_{new} = \begin{cases}
+        1 \text{(Class A) }, & \text{if } f(x^{new}) > 0 \\
+        -1 \text{(Class B) }, & \text{if } f(x^{new}) < 0
+    \end{cases}
+\end{equation}
+
+%ref
+% https://ieeexplore-ieee-org.ezproxy.lib.uts.edu.au/stamp/stamp.jsp?tp=&arnumber=6653952&tag=1
+% https://pureadmin.qub.ac.uk/ws/files/17844756/machine.pdf
+
+
 \subsection{k-Nearest Neighbours}
-k-Nearst Neighbours (k-NN) is a common approach to classification problems. 
-This approach classifies objects based on the compuatational distances between samples/values.
+k-Nearst Neighbours (k-NN) is a simple supervised machine learning algorithm used in both classification and regression problems. 
+This approach classifies objects based on the compuatational distances or similarities between samples/values.
+The k-NN algorithm only requires tuning of a single parameter, $k$, which represents the amount of nearest samples within the neighbourhood.
+The choice of $k$ will affect the algorithm's performance where a value too small would create higher variance hence resulting in less stability.
+A larger $k$ value will produce higher bias resulting in lower precision. 
 
+After the number of neighbours, $k$, has been selected, the distances between the query data point, $x_q$, and an arbitrary data point, $x_i$ are to be determined.
+Most commonly used is the Euclidean distance (\ref{Euclidean}), however Manhattan distance (\ref{Manhattan}) may also be applied.
 
-\subsection{Decision Trees}
+\begin{equation} \label{Euclidean}
+    d(x_q,x_i) = \sqrt{\sum_{i=1}^{m} (x_q - x_i)^2}
+\end{equation}
+\begin{equation} \label{Manhattan}
+    d(x_q,x_i) = \sum_{i=1}^{m} \lvert x_r - x_i \rvert
+\end{equation}
+
+The resulting values are then sorted by distance from smallest to largest and the first $k$ entries are selected. 
+In classification problems, the mode of $k$ labels is returned, while the mean of $k$ labels is returned in regression problems.
+
+% references:
+% https://towardsdatascience.com/machine-learning-basics-with-the-k-nearest-neighbors-algorithm-6a6e71d01761
+% https://www.listendata.com/2017/12/k-nearest-neighbor-step-by-step-tutorial.html
+% http://www.lkozma.net/knn2.pdf
+% https://ieeexplore-ieee-org.ezproxy.lib.uts.edu.au/stamp/stamp.jsp?tp=&arnumber=7456223
+
 \subsection{Random Forest}
+\subsection{Neural Networks}
 
 \section{Results}
 \section{Recommendations}
+Literature review:
 
+Regression application - Prediction of Remaining Useful Lifetime (RUL) of
+Turbofan Engine using Machine Learning 
+
+%% Reward Hacking
+\chapter{Reward Hacking}
+
+%% Conclusion
+\chapter{Conclusion}
 
 %% Bibliography
 \renewcommand{\bibname}{References}

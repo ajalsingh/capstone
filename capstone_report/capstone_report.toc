@@ -8,12 +8,15 @@
 \contentsline {section}{\numberline {2.1}Label Bias and Environmental Datashift}{4}{section.2.1}
 \contentsline {section}{\numberline {2.2}Suitable Algorithm Selection}{4}{section.2.2}
 \contentsline {section}{\numberline {2.3}Reward Hacking}{7}{section.2.3}
-\contentsline {chapter}{\numberline {3}Suitable Algorithm Selection}{8}{chapter.3}
-\contentsline {section}{\numberline {3.1}Dataset}{8}{section.3.1}
-\contentsline {section}{\numberline {3.2}Algorithms}{9}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Support Vector Machines}{9}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}k-Nearest Neighbours}{9}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Decision Trees}{9}{subsection.3.2.3}
-\contentsline {subsection}{\numberline {3.2.4}Random Forest}{9}{subsection.3.2.4}
-\contentsline {section}{\numberline {3.3}Results}{9}{section.3.3}
-\contentsline {section}{\numberline {3.4}Recommendations}{9}{section.3.4}
+\contentsline {chapter}{\numberline {3}Label Bias and Environmental Datashift}{8}{chapter.3}
+\contentsline {chapter}{\numberline {4}Suitable Algorithm Selection}{9}{chapter.4}
+\contentsline {section}{\numberline {4.1}Dataset}{9}{section.4.1}
+\contentsline {section}{\numberline {4.2}Algorithms}{10}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Support Vector Machines}{10}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}k-Nearest Neighbours}{10}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Random Forest}{11}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.4}Neural Networks}{11}{subsection.4.2.4}
+\contentsline {section}{\numberline {4.3}Results}{11}{section.4.3}
+\contentsline {section}{\numberline {4.4}Recommendations}{11}{section.4.4}
+\contentsline {chapter}{\numberline {5}Reward Hacking}{12}{chapter.5}
+\contentsline {chapter}{\numberline {6}Conclusion}{13}{chapter.6}

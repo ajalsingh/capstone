@@ -208,10 +208,53 @@ We will perform a systematic literature review on applications and known causes 
 
 %% Label Bias and Environmental Datashift
 \chapter{Label Bias and Environmental Datashift}
+Bias is the result of inadequate data where a certain group or class is favoured over another/others hence creating an overrepresentation \cite{Jiang}\cite{saria2019tutorial}.
+ML models trained using such datasets will acquire these underlying biases hence making incorrect predictions.
+
+The following mathematical framework can be used as a representation to undestand bias in data \cite{Jiang}
+
+\begin{figure}[h]
+    \includegraphics[scale =0.8]{Assumption.png}
+    \centering
+    \caption{Bias Assumption \cite{Jiang}}
+    \label{fig:Assumption}
+\end{figure}
+
+In figure \ref{fig:Assumption}, the assumption is that $y_{bias}$ is the label which is closest to $y_{true}$ and achieves the same amount of bias.
+In cases where data has been manually manipulated by humans, either consciously or subconsciously, this is deemed to be a reasonable assumption.
+The contiguity to $y_{true}$ is given by the KL-divergance, which is used to establish the notion of accurate labeling. 
+The Proposition in figure \ref{fig:Proposition} is derived from the KL-divergence. (For complete proof of proposition, see \cite{Jiang})
+
+\begin{figure}[h]
+    \includegraphics[scale =0.8]{Prop.png}
+    \centering
+    \caption{Bias Proposition \cite{Jiang}}
+    \label{fig:Proposition}
+\end{figure}
+
+Now that $y_{bias}$ is represented in terms of $y_{true}$, we can infer $y_{true}$ in terms of $y_{bias}$ as represented in Figure \ref{fig:Corollary}.
+
+\begin{figure}[h]
+    \includegraphics[scale =0.8]{corollary.png}
+    \centering
+    \caption{Bias Corollary \cite{Jiang}}
+    \label{fig:Corollary}
+\end{figure}
+
+There may be situations where performance issues may not be apparent during training stages. 
+They instead appear post-deployment where training and deployment datasets can have irregularities. 
+This is known as Environmental Datashift. This calls into question whether the ML model is robust enough to generalise well to new samples beyond training, or whether it tends to over-generalise to the training dataset.
+
+
+\section{Dataset \& Preprocessing}
+The predictive maintenance dataset will be used again to classify failures of an ioT gadget.
+During one week, maintenance data was collected from six devices every hour for 168 hrs.
+Therefore, this data set contains 1008 rows of data. 
+Each cycle of data reading contains the following measurements: 
 
 %% Suitable Algorithm Selection
 \chapter{Suitable Algorithm Selection}
-\section{Dataset}
+\section{Dataset \& Preprocessing}
 The predictive maintenance dataset will be used again to classify failures of an ioT gadget.
 During one week, maintenance data was collected from six devices every hour for 168 hrs.
 Therefore, this data set contains 1008 rows of data. 
@@ -238,6 +281,10 @@ Each cycle of data reading contains the following measurements:
 The failures dataset contains the precise times each gadget failed. 
 During the course of the week, 105 failures were recorded.
 Device failure is to be classified when the time remaining to device failure is less than one hour.
+
+This dataset has been split into two datasets for training and testing respectively.
+The training dataset will compromise of all data collected from gadget IDs 1-4, leaving data from gadgets 5 and 6 for the test set.
+This will ensure the trained models are tested on completely new data. 
 
 For more information on the dataset and use case, please see []
 \hyperlink{gitub repo}{https://github.com/Unikie/predictive-maintenance-tutorial}
@@ -269,7 +316,7 @@ The hyperplane can then be defined as $F_0$ in $\R^D$ space as,
 where, 
 $\beta \in \R^D$ with norm $||\beta|| = 1$
 
-For a new sample $x^{new}$ which is not within dataset $S$,
+For a new sample $x^{new}$ which is not within dataset $S$, we can detemine a classification as,
 \begin{equation}
     y_{new} = \begin{cases}
         1 \text{(Class A) }, & \text{if } f(x^{new}) > 0 \\
@@ -309,6 +356,19 @@ In classification problems, the mode of $k$ labels is returned, while the mean o
 % https://ieeexplore-ieee-org.ezproxy.lib.uts.edu.au/stamp/stamp.jsp?tp=&arnumber=7456223
 
 \subsection{Random Forest}
+Random Forest is an ensemble machine learning method which creates multiple random decision trees and combines their respective votes (classification) or averages (regression) to improve prediction accuracy and fitting.
+
+\enlargethispage{3\baselineskip}
+\begin{figure}[h]
+    \includegraphics[scale=0.7]{random_forest.png}
+    \centering
+    % \caption{Random Forest Algorithm \cite{chen}}
+    \label{fig:RF}
+\end{figure}
+
+% Ref:
+% https://www.math.mcgill.ca/yyang/resources/doc/randomforest.pdf
+
 \subsection{Neural Networks}
 
 \section{Results}

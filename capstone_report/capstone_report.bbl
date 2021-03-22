@@ -15,6 +15,10 @@ B.~Mohapatra, ``Machine learning applications to smart city,'' {\em ACCENTS
 D.~Luckey, H.~Fritz, D.~Legatiuk, K.~Dragos, and K.~Smarsly, ``Artificial
   intelligence techniques for smart city applications,'' 08 2020.
 
+\bibitem{Jiang}
+H.~Jiang and O.~Nachum, ``Identifying and correcting label bias in machine
+  learning,'' Jan 15 2019.
+
 \bibitem{Saif}
 I.~{Saif} and B.~{Ammanath}, ``‘trustworthy ai’ is a framework to help
   manage unique risk..'' MIT Technology Reviw, 2020.
@@ -37,10 +41,6 @@ S.~Saria and A.~Subbaswamy, ``Tutorial: Safe and reliable machine learning.''
 \bibitem{Amodei}
 D.~Amodei, C.~Olah, J.~Steinhardt, P.~Christiano, J.~Schulman, and D.~Mané,
   ``Concrete problems in ai safety,'' Jul 25 2016.
-
-\bibitem{Jiang}
-H.~Jiang and O.~Nachum, ``Identifying and correcting label bias in machine
-  learning,'' Jan 15 2019.
 
 \bibitem{Jedamski}
 D.~Jedamski, ``Bias/variance tradeoff - applied machine learning: Foundations.

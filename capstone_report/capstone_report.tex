@@ -307,6 +307,9 @@ For more information on the dataset and use case, please see []
 \hyperlink{gitub repo}{https://github.com/Unikie/predictive-maintenance-tutorial}
 
 \section{Algorithms}
+The following section shortlists and describes algorithms which can be used to train a supervised model. 
+Also discussed are the factors affecting the performance and reliability of these algorithms.
+
 \subsection{Support Vector Machines}
 Support Vector Machines (SVM) is a common supervised machine learning algorithm for both classification and regression tasks.
 A key attribute of SVMs is its high accuracy and precision in thge segregation of classes.
@@ -383,6 +386,8 @@ Random Forest is an ensemble machine learning method which creates multiple rand
     \label{fig:RF}
 \end{figure}
 
+Add more stuff about reliability/performance factors
+
 % Ref:
 % https://www.math.mcgill.ca/yyang/resources/doc/randomforest.pdf
 
@@ -390,43 +395,111 @@ Random Forest is an ensemble machine learning method which creates multiple rand
 Some filler text for the time being.
 
 \section{Results}
+Building on top of github project, we get the following results.
 
 \begin{figure}[H]
-    \includegraphics[scale=0.95]{results.png}
+    \includegraphics[scale=0.9]{results.png}
     \centering
     % \caption{Random Forest Algorithm \cite{chen}}
     \label{fig:RF}
 \end{figure}
 
 \begin{figure}[H]
-    \includegraphics[scale=0.95]{AUC.png}
+    \includegraphics[scale=0.9]{AUC.png}
     \centering
     % \caption{Random Forest Algorithm \cite{chen}}
     \label{fig:RF}
 \end{figure}
 
-\begin{tabular}{lrrrrr}
-    \toprule
-        \textbf{Algorithm} &  \textbf{Precision} &  \textbf{Recall} &  \textbf{Accuracy} &       \textbf{AUC} &        \textbf{F1} \\
-    \midrule
-    \textbf{Random Forest} &   0.310680 &  \cellcolor{lightgray} 1.0000 &  0.782875 &  \cellcolor{lightgray}0.879661 &  \cellcolor{lightgray}0.474074 \\
-    \textbf{Logarithmic Regression} &   0.300000 &  0.9375 &  0.779817 &  0.850106 &  0.454545 \\
-    \textbf{Linear Regression} &   0.000000 &  0.0000 &  \cellcolor{lightgray}0.902141 &  0.500000 &  0.000000 \\
-    \textbf{k Nearest Neighbours} &   0.285714 &  0.0625 &  0.892966 &  0.522775 &  0.102564 \\
-    \textbf{Neural Network} &   \cellcolor{lightgray}0.363636 &  0.1250 &  0.892966 &  0.550636 &  0.186047 \\
-    \textbf{SVM} &   0.303030 &  0.9375 &  0.782875 &  0.851801 &  0.458015 \\
-    \textbf{Naive Bayes} &   0.303030 &  0.9375 &  0.782875 &  0.851801 &  0.458015 \\
-    \textbf{CLF} &   0.000000 &  0.0000 &  0.868502 &  0.481356 &  0.000000 \\
-    \bottomrule
-\end{tabular}
-    
+\begin{table}
+    \caption{PDM Classification Metrics}
+    \begin{tabular}{lrrrrr}
+        \toprule
+            \textbf{Algorithm} &  \textbf{Precision} &  \textbf{Recall} &  \textbf{Accuracy} &       \textbf{AUC} &        \textbf{F1} \\
+        \midrule
+        \textbf{Random Forest} &   0.310680 &  \cellcolor{lightgray} 1.0000 &  0.782875 &  \cellcolor{lightgray}0.879661 &  \cellcolor{lightgray}0.474074 \\
+        \textbf{Logarithmic Regression} &   0.300000 &  0.9375 &  0.779817 &  0.850106 &  0.454545 \\
+        \textbf{Linear Regression} &   0.000000 &  0.0000 &  \cellcolor{lightgray}0.902141 &  0.500000 &  0.000000 \\
+        \textbf{k Nearest Neighbours} &   0.285714 &  0.0625 &  0.892966 &  0.522775 &  0.102564 \\
+        \textbf{Neural Network} &   \cellcolor{lightgray}0.363636 &  0.1250 &  0.892966 &  0.550636 &  0.186047 \\
+        \textbf{SVM} &   0.303030 &  0.9375 &  0.782875 &  0.851801 &  0.458015 \\
+        \textbf{Naive Bayes} &   0.303030 &  0.9375 &  0.782875 &  0.851801 &  0.458015 \\
+        \textbf{CLF} &   0.104869 &  0.8750 &  0.256881 &  0.532415 &  0.187291 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]    
+    \centering
+    \caption{PDM Confusion Matrix}
+    \begin{tabular}{lrrrr}
+        \toprule
+        \textbf{Algorithm} &   \textbf{TP} &   \textbf{FP} &  \textbf{FN} &  \textbf{TN} \\
+        \midrule
+        \textbf{Random Forest} &  224 &   71 &   0 &  32 \\
+        \textbf{Logarithmic Regression} &  225 &   70 &   2 &  30 \\
+        \textbf{Linear Regression} &  295 &    0 &  32 &   0 \\
+        \textbf{k Nearest Neighbours} &  290 &    5 &  30 &   2 \\
+        \textbf{Neural Network} &  288 &    7 &  28 &   4 \\
+        \textbf{SVM} &  226 &   69 &   2 &  30 \\
+        \textbf{Naive Bayes} &  226 &   69 &   2 &  30 \\
+        \textbf{CLF} &   56 &  239 &   4 &  28 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Highest TP and lowest amount of FN desired
+
 \section{Further Research}
-Literature review:
 
-Regression application - Prediction of Remaining Useful Lifetime (RUL) of
-Turbofan Engine using Machine Learning 
+A seperate study compares existing resgression based machine learning algorithms on a similar but more complex predictive maintenance application,
+\textit{'Prediction of Remaining Useful Lifetime (RUL) of Turbofan Engine using Machine Learning'} \cite{RUL}.
+
+During this study, models were trained on a dataset obtained by NASA's data repository, where turbofan jet engines are run until failure.
+During operation 21 sensor measurements are recorded against a time series per engine. Training and evaluation occurs on four datasets, each containing data from 100-250 engines. 
+This dataset is much more complex than the one used in the previous experiments,
+hence it is expected to see much more variance in accuracy of the tested algorithms. 
+
+Listed below are machine learning algorithms used to predict RUL in this study:
+\begin{itemize}
+    \item Linear Regression
+    \item Decision tree
+    \item Support Vector Machine
+    \item Random Forest
+    \item K-Nearest Neighbours
+    \item The K Means Algorithm
+    \item Gradient Boosting Method
+    \item AdaBoost
+    \item Deep Learning
+    \item Anova 
+\end{itemize}
+\bigskip
+
+Like the Random Forest method, Gradien Boosting, AdaBoost, and Anova are also ensemble methods.
+
+\begin{table}[h]
+    \bigskip
+    \caption{RUL Algorithms Root Mean Square Error values\cite{RUL}}
+    \begin{figure}[H]
+        \includegraphics[scale=0.4]{RUL_results.png}
+        \centering
+        \label{fig:RF}
+    \end{figure}
+\end{table}
+
+\begin{figure}[H]
+    \caption{RUL Algorithms Root Mean Square Error Plots per data set\cite{RUL}}
+    \includegraphics[scale=0.45]{RUL_RMSE.png}
+    % \centering
+    \label{fig:RF}
+\end{figure}
+
+\hl{Use ensemble methods.
 
 It is also important to select appropriate evaluation metrics based on the model type and application.
+Assign a weight or cost to each output of the confusion matrix
+
+Research specific use case scenario to find suitable algorithms through proven research}
 
 %% Reward Hacking
 \chapter{Reward Hacking}

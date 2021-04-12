@@ -128,12 +128,12 @@ activity and fraud \cite{9004327}.
 
 \section{Project Contextualisation}
 A tutorial presented by Suchi Saria and Adarsh Subbaswamy of John Hopkins University \cite{saria2019tutorial} postulates some causes and failure prevention techniques for use in supervised learning systems (regression and classification). 
-Some of the sources of unreliability discussed are the use of inadequate data, changes in training and deployment environments, and model misspecification. 
+Some of the sources of unreliability discussed in this tutorial are the use of inadequate data, changes in training and deployment environments, and model misspecification. 
 These aforementioned causes will form the basis of this research project.
 
 \enlargethispage{-\baselineskip}
 Another reliability issue is discussed in a separate paper, \textit{‘Concrete Problems in AI Safety’} \cite{Amodei} is the prevalence of reward hacking in Reinforcement Learning systems. 
-Reward hacking is the AI agent’s ability to cheat the system to achieve the highest reward in an unintended way. 
+Reward hacking is defined as the AI agent’s ability to cheat the system to achieve the highest reward in an unintended way. 
 For example, a positive reward may be given to a traffic management system when there is no congestion. However, the AI model decides to divert all traffic through alternative routes essentially shutting down this particular road/intersection. 
 This prevents congestion but does not perform as desired. This notion is also investigated in this research project.
 
@@ -257,10 +257,12 @@ Therefore, this data set contains 1008 rows of data.
 Each cycle of data reading contains the following measurements: 
 
 \section{Results}
+\hl{Consider noise in dataset due to uneccassry labels}
+
 Datashift:
 \hl{The issue is that modelers typically assume that training data
 is representative of the target population or environment where
-the model will be deployed. }\cite{saria2019tutorial}
+the model will be deployed} \cite{saria2019tutorial}
 
 \section{Discussion}
 
@@ -344,6 +346,16 @@ For a new sample $x^{new}$ which is not within dataset $S$, we can detemine a cl
     \end{cases}
 \end{equation}
 
+The performance of SVMs can be further improved by implementing kernel methods. Some popular kernel functions are:
+\begin{figure}[h]
+    \includegraphics[scale=0.7]{SVM_kernel.png}
+    \centering
+    % \caption{Random Forest Algorithm \cite{chen}}
+    \label{fig:kernel}
+\end{figure}
+
+A linear kernel will be used in this experiment.
+
 %ref
 % https://ieeexplore-ieee-org.ezproxy.lib.uts.edu.au/stamp/stamp.jsp?tp=&arnumber=6653952&tag=1
 % https://pureadmin.qub.ac.uk/ws/files/17844756/machine.pdf
@@ -368,6 +380,8 @@ Most commonly used is the Euclidean distance (\ref{Euclidean}), however Manhatta
 
 The resulting values are then sorted by distance from smallest to largest and the first $k$ entries are selected. 
 In classification problems, the mode of $k$ labels is returned, while the mean of $k$ labels is returned in regression problems.
+The choice of parameter $k$ can impact the models reliability. Too small a value for $k$ will result in higher variance while a value too high will increase bias. 
+This can be problematic when used on noisy datasets. Cross validation can be used to determine the correct $k$ value.
 
 % references:
 % https://towardsdatascience.com/machine-learning-basics-with-the-k-nearest-neighbors-algorithm-6a6e71d01761
@@ -395,24 +409,36 @@ Add more stuff about reliability/performance factors
 Some filler text for the time being.
 
 \section{Results}
-Building on top of github project, we get the following results.
+Building on top of the predictive maintenance project [], we train models using the following algorithms and test for Precision, Recall, Accuracy, and AUC scores.
+The results are depicted in Figures \ref{fig:Metric plot}, \ref{fig:AUC}, and Tables \ref{table:Metrics}, \ref{table:Conf}
+\begin{itemize}
+    \item Random Forests (RF)
+    \item Logarithmic Regression
+    \item Linear Regression
+    \item k-Nearest Neighbours (knn)
+    \item Neural Networks (nn)
+    \item Support Vector Machines (SVM)
+    \item Naive Bayes
+    \item Stochastic Gradient Descent (SGD/clf)
+\end{itemize}
 
 \begin{figure}[H]
     \includegraphics[scale=0.9]{results.png}
     \centering
-    % \caption{Random Forest Algorithm \cite{chen}}
-    \label{fig:RF}
+    \caption{Precision, Recall and Accuracy Scores}
+    \label{fig:Metric plot}
 \end{figure}
 
 \begin{figure}[H]
     \includegraphics[scale=0.9]{AUC.png}
     \centering
-    % \caption{Random Forest Algorithm \cite{chen}}
-    \label{fig:RF}
+    \caption{Area Under the Curve}
+    \label{fig:AUC}
 \end{figure}
 
-\begin{table}
+\begin{table}[h]
     \caption{PDM Classification Metrics}
+    \label{table:Metrics}
     \begin{tabular}{lrrrrr}
         \toprule
             \textbf{Algorithm} &  \textbf{Precision} &  \textbf{Recall} &  \textbf{Accuracy} &       \textbf{AUC} &        \textbf{F1} \\
@@ -432,6 +458,7 @@ Building on top of github project, we get the following results.
 \begin{table}[h]    
     \centering
     \caption{PDM Confusion Matrix}
+    \label{table:Conf}
     \begin{tabular}{lrrrr}
         \toprule
         \textbf{Algorithm} &   \textbf{TP} &   \textbf{FP} &  \textbf{FN} &  \textbf{TN} \\
@@ -448,7 +475,15 @@ Building on top of github project, we get the following results.
     \end{tabular}
 \end{table}
 
-Highest TP and lowest amount of FN desired
+In Table \ref{table:Metrics}, highlighted are the highest comparison scores between tested algorithms.
+The ensemble method Random Forests is evidently the most suited method to this predictive maintenace application.
+Linear Regression delivered the highest accuracy meaning it was able to make correct predictions the best. 
+However, it did not perform well in the other metrics. This highlights that algorithm evaluation cannot be determined based on accuracy alone.
+
+To ensure reliability and robustness, the goals of the use case should be considered and may contradict performance metrics.
+In this scenario, a True Positive (TP) case where the predicted failures are actual failures should take precedence as this is the money saving factor. 
+A False Negative (FN) case occurs when the model predicts a non-failure but in reality a failure has occured. This would result in large financial penalties for the company due to downtime.
+Therefore, the highest amount of TP cases and lowest amount of FN cases are desired.
 
 \section{Further Research}
 
@@ -477,29 +512,46 @@ Listed below are machine learning algorithms used to predict RUL in this study:
 
 Like the Random Forest method, Gradien Boosting, AdaBoost, and Anova are also ensemble methods.
 
+
 \begin{table}[h]
     \bigskip
     \caption{RUL Algorithms Root Mean Square Error values\cite{RUL}}
     \begin{figure}[H]
         \includegraphics[scale=0.4]{RUL_results.png}
         \centering
-        \label{fig:RF}
     \end{figure}
+    \label{table:RMSE}
 \end{table}
 
 \begin{figure}[H]
     \caption{RUL Algorithms Root Mean Square Error Plots per data set\cite{RUL}}
-    \includegraphics[scale=0.45]{RUL_RMSE.png}
-    % \centering
-    \label{fig:RF}
+    \includegraphics[scale=0.4]{RUL_RMSE.png}
+    \label{fig:RMSE Plots}
 \end{figure}
 
-\hl{Use ensemble methods.
+Table \ref{table:RMSE} and Figure \ref{fig:RMSE Plots} displays the RMSE values of all tested algorithms across all four datasets.
+As can clearly be seen, the complexity of this problem results in fluctuation of evaluation scores unlike our previous classification experiment.
+RMSE is a measure of the concentration of data around the line of best fit. Therefore, an algorithm with the lowest RMSE value is desired.
+In this application, the random Forest algorithm produced the lowest error value.
+
+When comparing these results to those of our previous classification experiement, it is clear that enseble methods perform the best, specifically, Random Forest. 
+It should also be noted that SVM outperformed knn in the classification experiement but performed worse in the RUL regression study.
+
+
+\bigskip
+\hl{add another study}
+
+\section{Recommendations}
+Above sections highlight the importance of correct model spcifications. Previous assumptions and expectations may not always be correct.
+
+\hl{Use ensemble methods and hyperparameter tuning.
 
 It is also important to select appropriate evaluation metrics based on the model type and application.
 Assign a weight or cost to each output of the confusion matrix
 
 Research specific use case scenario to find suitable algorithms through proven research}
+% https://pdf.sciencedirectassets.com/271506/1-s2.0-S0957417417X00109/1-s2.0-S0957417417302397/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEF4aCXVzLWVhc3QtMSJGMEQCIC53FsqmSpjp%2BQZj9Uvlsnq4pWNYncx8FF2OQ23FmKgkAiAcXvDwMGwRjH0UYxFOV3NaELWAqNC04I378835HV8Ddyq9Awi3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAMaDDA1OTAwMzU0Njg2NSIMYqA70v0TzrNak19iKpEDBvqMBBuWJ0aYNJouVwXQ35CXZg6ARpd5zZsgttN8QGD%2B3j4NV2v289xxiDQQNfltw6POyIApxTgYr6jp4s5S5FwYqdYy6xIZDl7XbC7IY7chzx3bV5bs%2BdRhZcW8WJPnHAjuH6yC6%2BtUY8e7nk5k2WYsdLfkV8Tk2qYpnSqkjyK1cCTM55SOwbgcNJ0w%2Fpo8PJq3mdzi8kI9fD9DFv8wVsDUs0dRXp2jPtTTduTIhNwGa4JgLTh1xplV23kKewbIalHtdNFiqPZB%2Bbr%2FITjQSbWAlwvorEiq31BbESWXfTIIlxQdixRt20XOCypDeG2RrsBe3jPt3t3DBVNF4%2BOkNE2%2BaWmbtgcekVFXZEsTpRRMirynYAJ3FKpj%2BRck%2FKKxUQ9UjqhrMkQrDvXfcqo5QrWlvI4uGPiNoec5Z%2F6bRMXdDgDWP%2FvXQ6Q86YA%2BOLvbiNWgQTfmUFYT8fFgsljtVqiov7W%2BRNWA2Vj%2F%2BKsxtdc7Ok%2BOhxSE%2F9JS%2BSemJuBxJmSlbQqOr8DPQHYlp6h4YxMwl8DPgwY67AGgOpD6YmdbpnxG6nEHk1pw57wlOHkaF2iNo4FC9KM8jegDXaKv0LtK3bBsAigrskq4QKpZXpaAopbnKphKhfoOYrdmgIm7Ba0V44nNPSe46I5%2FsBikWMh3ZQ6s7lqBT1EQa4ds5NQAhi26Vf02PMgLXLk67acqUys0Go%2FKgQv2reuep1GgeOilitWRdjJwkwe07XUnJbNGMMcYNVvqgn%2FikKG4gZzshEt142pOV5N2lNfJbn7GleRVzP6u5NW1NwKmnbDm50JZ5iGgFV3pOpErKyuMC8JoEc3vDhF35jJ6tITkIHuvGvxGACX4iw%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210412T063232Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTY6KJJLFFB%2F20210412%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=3a49f5dce9775617b98bcc583609d05d8482af9edf219e50219977b74ba83b62&hash=8a44df99adabed4a00d5099a66fae6484d6654bda9d1402f88f056bc364a2330&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S0957417417302397&tid=spdf-75df757c-2550-4170-8694-4099a14ded3c&sid=c7d6cc998d9f344cac299b155f55848b59cbgxrqa&type=client
+% https://www-sciencedirect-com.ezproxy.lib.uts.edu.au/science/article/pii/S0360835219304838?via%3Dihub
 
 %% Reward Hacking
 \chapter{Reward Hacking}

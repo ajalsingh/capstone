@@ -1,0 +1,175 @@
+%% Reward Hacking
+\chapter{Reward Hacking}
+Unlike Supervised and Unsupervised Learning methods where predictions are made on underlying class types or patterns respectively, 
+Reinforcement Learning operates on a reward-action (trial and error) system where feedback is provided to determine the most optimal method to perform an action.
+As the agent takes actions, $a_t$ to ineteract and manipulate the environment, state, $S_t$, and a reward fucntion, $R_t$, are returned from the environment. 
+The Agent is then able to iterate through another cycle by performing another action based on the feedback and rewards recieved.
+
+\begin{figure}[H]
+    \centering
+    \caption{Reinforcement Learning and the Environment \cite{amiri_mehrpouyan_fridman_mallik_nallanathan_matolak_2018}}
+    \includegraphics[scale=0.5]{RL.png}
+    \label{fig:RL}
+\end{figure}
+
+The Markov Decision Processes (MDP) can be used to represent an RL framework in terms of time steps.
+MDP is represented as a tuple, $(S, a, P, R, \gamma)$ where:
+\begin{itemize}
+    \item $S$ is a set of states,
+    \item $a$ is a set of actions,
+    \item $P$ is the state trainstion probability matrix
+    \item $\gamma$ is a discount factor, 
+    \item $R$ is a reward function 
+\end{itemize}   
+
+An action, $a_t$, taken under state, $S_t$ leads to the following state, $S_{t+1}$. 
+\begin{equation}
+    s_t \xrightarrow{a_t} s_{t+1}
+\end{equation}
+
+A reward, $R_t$, is then awarded for the current state based on the actions.
+\begin{equation}
+    R_t(s_t, a_t) 
+\end{equation}
+
+However, RL agents are slso succeptible to unreliabilties. The phenomenon of reward hacking occurs when the agent is able to maximise its reward in an unintended and undesirable way hence "is gaming the system".
+
+\section{Applications}
+RL approaches can also be applied to predictive maintenance applications to reduce critical downtime. 
+As discussed earlier in Section 4.4, regressional models (as well as deep learning) are able to accurately make predictions on RUL for example. 
+Nonetheless, such methods are unable to provide meaningful information or observations to aid the decision making process of maintenance operations due to complexities or unknowns in the environment \cite{9221098}.
+
+An example of this RL scenario \cite{9221098}, where the objective function was to maximise the sensor lifetime.
+The reward function (\ref{eq:reward fucntion}) was defined as such to manage the agent's actions:
+\begin{equation}
+    \label{eq:reward fucntion}
+    R_t = \begin{cases}
+        R_{Rpl}, & \text{if } S_t^i > 0, \beta > 0\\
+        R_{Rpa}, & \text{if } S_representedt^i > 0, \beta > 0\\
+        R_{Exp}, & \text{if } S_t^i > 0\\
+        R_{Frug}, & \text{if } S_t^i > 0, \beta > 0\\
+        R_{Pen}, & otherwise
+    \end{cases}
+\end{equation}
+
+Another application of RL approaches is within traffic management systems (TMS). 
+Traffic congestion increases environmental and noise pollution, fuel consumption, as well as operating costs.
+This study \cite{JOO2020324} aims to maximise the amount of vehicles through intersections while minimising standard deviation of traffics jams.
+The following reward function was used to assess the agent's actions:
+\begin{equation}
+    r_t = log_\delta(f(t))
+\end{equation}
+\begin{equation}
+    f(t) = \alpha \cdot (d_{ql}) + (1 - \alpha)\cdot(\tau^{tp})
+\end{equation}
+
+In order to exploit these reward functions, agents may start to behave irrationally. 
+For example, the TMS may choose to give precedence to a certain queue within an intersection, or it may completely completely ignore the standard deviation if the throughput in a particular direction provides a better reward.
+
+Similarly, if a higher reward is given to the predictive maintenance agent if it applies a 'repair' or 'replace' action, it may continuously flag a fault even though no faults exist. 
+
+\section{Causes of Unreliability}
+The following sections describe some common causes of Reward hacking.
+There is no one single cause or action that can cause an agent to game its reward system. 
+Often a system may encounter a combination of these problems.
+
+\hl{Find some more if needed}
+
+\subsection{Poor Feedback Loops}
+If the objectivive function includes a parameter such as discount, $\gamma$, which can boost or diminish itself, another parameter becomes redundant.
+As a result, the objective function no longer behaves as it was intended.
+The example provided in the previous section is a great example of this. The standard deviation was intended to equalise the importance of all queues.
+But it may be diminished by the strong feedback loop of vehicles passing through the intersections.
+
+\subsection{Goodhart's Law}
+\begin{quotation}
+    \textit{"When a measure becomes a target, it ceases to be a good measure."}
+\end{quotation}
+If the interelationship betwen an objective function and its means or factors to successfully accomplishing a task is too high,
+that relationship will not hold under heavy optimisation. 
+Continuing on with our TMS example, if the success of the operation were only based on throuput of vehicles across an intersection,
+the agent may choose to show a certain queue the green light forever. 
+This would mean there is no queue of vehicles at this intersection and the agent would keep collecting the maximum reward for keep the queue count at zero.
+
+\subsection{Wireheading \& Reward Function Tampering}
+Wireheading is ability of an intelligent agent to modify its reward sensors to ensure it always recieves the maximum reward \cite{JOO2020324}. 
+In short, Wireheading occurs if the agent is no longer optimisising the the objective function, but rather assumes control of the measuring system (reward process).
+Reward Function Tampering is defined as the agent's ability to modify or rewrite its reward function to yield maximum reward.
+This encouragement to game the reward function results in a deviation from the intended goal/s. 
+At the present time, most RL agents are not yet intelligent enough to cause serious havoc in most applications however, some examples of Wireheading/Reward Tampering are presented in \cite{DBLP:journals/corr/abs-1908-04734}.  
+Concern arises in cases where humans have influence in the reward process (implicityly or explicitly) and can be a danger to themselves and others.
+
+\subsection{System Complexity}
+As the complexity of a program or system increases, so does the likelihood of bugs and glitches existing within the code.
+Consequently, the chance of the reward system being taken advantage of increases. 
+Despite the fact that such issues can be easily rectified, a simple bug or sesnor fault in traffic cameras/sensors  for a TMS system can and often will be taken advantage of by the agent. 
+
+
+\section{Approaches for Prevention}
+\subsection{Careful Engineering}
+In most cases, the simplest yet most tedious solution to reward hacking is careful engineering.
+Performing formal verification or thorough practical testing is an easy way to iron out issues which may cause problems down the line.
+Cyberscuirty approaches such as sandboxing could also be beneficial as a means to segregate the agent from rewards.
+
+\subsection{Reward Strategies}
+
+\subsubsection{Reward Capping}
+To prevent the agent performing high payoff and low probability approaches, reward capping can be implemented.
+This would disclose to the agent that performing these undesired actions will no longer provide a reward which is significantly larger than optimising the function in the desired manner.
+
+\subsubsection{Multiple Rewards}
+Multiple rewards functions can be used and combined by averaging or further optimisation to deter reward hacking.
+Each reward function could differ slightly, mathematically or by objective function, ensuring that an invulnerability in one reward function does not impact the whole system.
+Although it is unlikely, there is a chance that all reward functions could still be hacked.
+
+\subsubsection{Inverse Rewards}
+When an agent performs an action which takes a step towards the correct direction in terms of objective function, it is given a reward.
+The inverse could be applied as well. If the agent takes actions which move in the opposite direction to the objective function, it can be given a negative reward.
+\hl{more maths}
+
+\subsubsection{History Based Rewards}
+The following claim has been made in \cite{DBLP:journals/corr/abs-1908-04734}:
+\begin{quote}
+    \emph{''A history-based reward function exists that avoids the RF-input tampering
+    problem, if a deterministic (history-based) policy exists that reliably performs the task.''}
+\end{quote}
+
+\subsubsection{Belief Based Rewards}
+
+\subsection{Model Lookahead}
+A viable solution to prevent the model/agent from replacing its reward function (Reward Tampering) is to implelement Model Lookahead.
+A model based RL system uses a model to develop a strategy for future actions by assessing the states a seiries of actions would lead to.
+A reward can be provided according to the model's anticipated state/s rather than providing a reward with respect to the current state.
+The agent will not be able benefit from hacking as these exploitations will most likely not reach the anticipated states.
+To represent Mathematically:
+\begin{align*}
+    \text{current reward function: } &\quad\theta^R_k \\
+    \text{simulated future trajectories } &\quad  k_{k+1},... S_m  \\
+    \text{at time } k, &\quad  R_t^k = R(S_t;\theta^R_k)
+\end{align*}
+    
+This notion continues in a similar study (see for complete mathematical breakdown) \cite{EverittFDH16} where three agent definitions are proposed, in Figure \ref{fig:value_func} and Table \ref{table:val_func_table}.
+Hedonistic value functions are calculated using the future utility function, $u_{t+1}$, instead of the current utility function, $u_t$.
+Therefore, these value functions promote self modification.
+The modification of utility functions for Ignorant and Realistic value functions only affect modifications of future versions of that model.
+
+\begin{figure}[H]
+    \centering
+    \caption{Self-modification value functions \cite{EverittFDH16}}
+    \includegraphics[scale=0.8]{lookahead_definitions.png}
+    \label{fig:value_func}
+\end{figure}
+
+\begin{table}[h]
+    \bigskip
+    \caption{Self-modification value functions \cite{EverittFDH16}}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.8]{lookahead_table.png}
+    \end{figure}
+    \label{table:val_func_table}
+\end{table}
+
+\subsection{Adversarial Methods}
+
+\subsection{Trip Wires}

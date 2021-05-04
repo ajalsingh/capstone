@@ -68,6 +68,8 @@ For example, the TMS may choose to give precedence to a certain queue within an 
 
 Similarly, if a higher reward is given to the predictive maintenance agent if it applies a 'repair' or 'replace' action, it may continuously flag a fault even though no faults exist. 
 
+In the following two sections we identify and discuss causes of reward hacking and potential solutions as presented in studies caried out by researchers primarily from Google \cite{Amodei} \cite{DBLP:journals/corr/abs-1908-04734}.
+
 \section{Causes of Unreliability}
 The following sections describe some common causes of Reward hacking.
 There is no one single cause or action that can cause an agent to game its reward system. 
@@ -135,6 +137,8 @@ The following claim has been made in \cite{DBLP:journals/corr/abs-1908-04734}:
 \end{quote}
 
 \subsubsection{Belief Based Rewards}
+\hl{Add content here}
+
 
 \subsection{Model Lookahead}
 A viable solution to prevent the model/agent from replacing its reward function (Reward Tampering) is to implelement Model Lookahead.
@@ -171,5 +175,34 @@ The modification of utility functions for Ignorant and Realistic value functions
 \end{table}
 
 \subsection{Adversarial Methods}
+RL systems are always looking for ways to game the reward function to obtain a high reward while disregarding the intended behaviour for the use case.
+Consequently the relationship between the agent and reward function can be describe as adversarial.
+Generally, the RL system is a dynamic agent capable of adapting to its environment or changing its actions and even source code. 
+On the other hand, the reward function is a static object with no means to protect itself from the agents exploitations.
+
+To combat this, the reward function could have its own agent capable of exploring and adapting to its environment to prevent the primary agent from trying to game it.
+So the reward agent would search for states where the primary agent would claim a high reward but the human/developer would label as a low reward due to undesired behaviour.
+
+Another tecnhinque is Adversarial Blinding where the agent becomes oblivious (blind) to particular variables.
+In such cases, the agent would not be able to completely understand its environment and eradicates its ability to understand how the reward is generated.
+If the agent cannot understand how the reward is generated, the likeliness of it being able to hack the reward function greatly diminishes.
 
 \subsection{Trip Wires}
+Trip wires is a technique akin to a security system. The main goal of trip wires is to alert the human that the agent is attempting to exploit the reward function.
+Ideally, the technique would also stop the agent before the reward function has been taken advantage of.
+Despite the fact that this is not a solution to reward hacking, it will reduce risk of harmful actions but also act a measurable quantity or diagnostic which can be used to further improve the objective function.
+
+\subsection{Algorithmic Approaches}
+Researchers in \cite{multi-step} have identified drawbacks in some of the aforementioned approaches for the prevention of reward hacking.
+For instance reward capping can weaken the influence of exploitations but also weaken the performance of the RL agent as a whole.
+Traditional multi-step approaches are also a potential solution where the agent pays attention to for a longer amount of time (instead of a single time-step).
+
+Subsequently, researchers proposed a new 'novel multi step approach' that uses a new return function defined:
+\begin{equation}
+    \hat{G}_t^{(n)} = \frac{1}{n} \sum^{k=n}_{k=1} G_{t+k-1}
+\end{equation}
+This function is the average of $n$ standard return functions $G_t, G_{t+1},\dots G_{t+n-1}$, and 
+intends to change the discount of future rewards and lessens the effect of the immidiate reward.
+For a detailed breakdown of this approach, it is recommended to visit \cite{multi-step}
+
+For further reading, algorithmic approaches for wireheading and reward function tampering are discussed in \cite{Wireheading} and \cite{DBLP:journals/corr/abs-1908-04734} respectively.

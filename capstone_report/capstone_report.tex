@@ -31,6 +31,7 @@
 \usepackage{booktabs}
 \usepackage[table]{xcolor}
 \usepackage[nottoc, numbib, notlof, notlot]{tocbibind}
+\usepackage{nomencl}
 \setlength{\footskip}{45pt}
 \setcounter{secnumdepth}{3}
 \newcommand{\R}{\mathbb{R}}
@@ -74,14 +75,18 @@
 % Add title page, abstract, TOC, LOF, LOT
 \begin{document}
 \maketitle
-% \input{chapters/abstract.tex}
+\input{chapters/abstract.tex}
+    \thispagestyle{empty}
+\input{chapters/acknowledgement.tex}
+    \thispagestyle{empty}
 \tableofcontents
     \thispagestyle{empty}
 \listoffigures
     \thispagestyle{empty}
 \listoftables
     \thispagestyle{empty}
-
+\input{chapters/nomenclature.tex}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
 
 \input{chapters/eng_research_problem.tex}
 \input{chapters/methodology.tex}

@@ -40,7 +40,7 @@ This calls into question whether the ML model is robust enough to generalise wel
 \hl{maths}
 
 \section{Dataset \& Preprocessing}
-The predictive maintenance dataset will be used again to classify failures of an ioT gadget.
+The predictive maintenance dataset \cite{ahonen} will be used to model bias and environmental datashift while classifying failures of an ioT gadget/s.
 During one week, maintenance data was collected from six devices every hour for 168 hrs.
 Therefore, this data set contains 1008 rows of data. 
 Each cycle of data reading contains the following measurements: 
@@ -100,17 +100,31 @@ Concsequently, the test dataset was also split into 'Sample 1' and 'Sample 2' in
             \textbf{Dataset} & \textbf{Size} &\textbf{Description} \\ [0.5ex]
             \midrule
             \textbf{Full Train} &685& 70\% of the complete dataset. Used for training model \\
-            \textbf{Full Test} &293& 30\% of the complete dataset. Used for testing model \\
-            \textbf{DF1} &339& All samples from \textbf{Full Train} with Gadget ID 1,2 \& 3 only \\
-            \textbf{DF2} &346& All samples from \textbf{Full Train} with Gadget ID 4,5 \& 6 only \\
-            \textbf{Sample 1} &150& All samples from \textbf{Full Test} with Gadget ID 1,2 \& 3 only \\
-            \textbf{Sample 2} &145& All samples from \textbf{Full Test} with Gadget ID 4,5 \& 6 only \\
+            \textbf{Full Test}  &293& 30\% of the complete dataset. Used for testing model \\
+            \textbf{DF1}        &339& Only samples from \textbf{Full Train} with Gadget ID 1,2 \& 3 \\
+            \textbf{DF2}        &346& Only samples from \textbf{Full Train} with Gadget ID 4,5 \& 6 \\
+            \textbf{Sample 1}   &150& Only samples from \textbf{Full Test} with Gadget ID 1,2 \& 3 \\
+            \textbf{Sample 2}   &145& Only samples from \textbf{Full Test} with Gadget ID 4,5 \& 6 \\
             \bottomrule
         \end{tabular}
     \end{center}
 \end{table}
 
 \section{Results}
+It has previously been assumed that bias occurs when one type of sample is over represented over another/others.
+By training a model with DF1 or DF2 dataset instead of the Full Train dataset, samples of certain devices have been completely overlooked and hence bias exists within DF1 and DF2. 
+Using Table (\ref{table:Bias}), we can compare the metrics of Full Train, DF1 and DF2 sets when tested against the Full Test set.
+Although DF1 improves amongst most metrics of the Full Test, we observe a deacrease in performance in the model trained with DF2.
+The increase in metrics of DF1 may suggest higher importance of those samples over DF2 but it is difficult to be certain due to the small dataset size (under 1000 samples).
+
+In the case of Environmental Datashift, we take a scenario where a model is trained on dataset DF1.
+Remembering DF1 and Sample 1 datasets are only concerned with samples from Gadgets 1, 2 \& 3, it is expected that this combination will offer the highest results.
+Experimental results in Table (\ref{table:Bias}) and the plots in Figures (\ref{fig:DF1}) \& (\ref{fig:DF2}) back this claim. 
+Continuing further, testing the model with Full Test yields the next best results as it contains a mix of already seen and completely new samples.   
+Performance is affected severely when the model is tested using DF2 as the samples have irregularities when compared to training data.
+This model is not robust enough to generalise to new samples and solutions are offered in subsequent sections. 
+
+\bigskip
 \begin{table}[H]
     \begin{center}
         \caption{PDM Label Bias and Environmental Datashift Evaluation Results}
@@ -121,10 +135,10 @@ Concsequently, the test dataset was also split into 'Sample 1' and 'Sample 2' in
             \multicolumn{1}{l}{}      & \multicolumn{1}{c|}{Full Train} & \multicolumn{3}{c|}{DF1}                                                                       & \multicolumn{3}{c}{DF2}                                                                       \\ \cline{2-8} 
             \multicolumn{1}{l}{}      & \multicolumn{1}{l|}{Full Test}  & \multicolumn{1}{l|}{Full Test} & \multicolumn{1}{l|}{Sample 1} & \multicolumn{1}{l|}{DF2} & \multicolumn{1}{l|}{Full Test} & \multicolumn{1}{l|}{Sample 2} & \multicolumn{1}{l}{DF1} \\ 
             \midrule
-            \textbf{Accuracy} & 0.71 &0.717 &0.774 &0.731 &0.71 &0.789 &0.673\\
-            \textbf{Precision} &0.9 &0.90 &0.90 &0.92 &0.90 &0.93 &0.91\\
-            \textbf{Recall} &0.71 &0.72 &0.77 &0.73 &0.71 &0.79 &0.67\\
-            \textbf{F1 Score} &0.77 &0.77 &0.81 &0.78 &0.77 &0.83 &0.75\\
+            \textbf{Accuracy}   & 0.778 &0.788  &0.816  &0.675  &0.775      &0.778  &0.743\\
+            \textbf{Precision}  &0.91   &0.93   &0.93   &0.91   &0.91       &0.93   &0.91\\
+            \textbf{Recall}     &0.78   &0.79   &0.82   &0.67   &0.77       &0.78   &0.74\\
+            \textbf{F1 Score}   &0.82   &0.82   &0.85   &0.74   &0.81       &0.82   &0.79\\
             % \midrule
             % \bottomrule
         \end{tabular}
@@ -151,4 +165,6 @@ Datashift:
 is representative of the target population or environment where
 the model will be deployed} \cite{saria2019tutorial}
 
-\section{Discussion}
+\section{Further Research}
+
+\section{Recommendations}

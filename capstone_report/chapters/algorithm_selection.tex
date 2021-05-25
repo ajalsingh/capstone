@@ -8,40 +8,38 @@ Therefore, it is important to make use of inductive bias\cite{saria2019tutorial}
 
 In this chapter we will first train a number of models using different supervised learning algorithms before comparing respectives evaulation metrics. 
 Afterwards, research will be performed on algorithm selection for other use cases before finally reccomendations are presented.
+
 \section{Dataset \& Preprocessing}
 The predictive maintenance dataset will be used again to classify failures of an ioT gadget.
 During one week, maintenance data was collected from six devices every hour for 168 hrs.
 Therefore, this data set contains 1008 rows of data. 
 Each cycle of data reading contains the following measurements: 
 
-\begin{table}[H]
-    \begin{center}
-        \caption{Measurements Dataset} 
-        \begin{tabular}{ l|l } 
-         \toprule
-         \textbf{Measurement} & \textbf{Description} \\  [0.5ex] 
-         \midrule
-         \textbf{Measurement Time} & Time \\
-         \textbf{Gadget ID} & Device number \\
-         \textbf{Vibration x sensor} & Horizontal vibration \\ 
-         \textbf{Vibration y sensor} & Vertical vibration \\ 
-         \textbf{pressure sensor} & Hose pressure \\
-         \textbf{Temperature sensor} & Internal temperature \\
-         \bottomrule
-        \end{tabular}
-    \end{center}
-\end{table}
+% \begin{table}[H]
+%     \begin{center}
+%         \caption{Measurements Dataset} 
+%         \begin{tabular}{ l|l } 
+%          \toprule
+%          \textbf{Measurement} & \textbf{Description} \\  [0.5ex] 
+%          \midrule
+%          \textbf{Measurement Time} & Time \\
+%          \textbf{Gadget ID} & Device number \\
+%          \textbf{Vibration x sensor} & Horizontal vibration \\ 
+%          \textbf{Vibration y sensor} & Vertical vibration \\ 
+%          \textbf{pressure sensor} & Hose pressure \\
+%          \textbf{Temperature sensor} & Internal temperature \\
+%          \bottomrule
+%         \end{tabular}
+%     \end{center}
+% \end{table}
 
-The failures dataset contains the precise times each gadget failed. 
-During the course of the week, 105 failures were recorded.
-Device failure is to be classified when the time remaining to device failure is less than one hour.
+% The failures dataset contains the precise times each gadget failed. 
+% During the course of the week, 105 failures were recorded.
+% Device failure is to be classified when the time remaining to device failure is less than one hour.
 
 This dataset has been split into two datasets for training and testing respectively.
 The training dataset will compromise of all data collected from gadget IDs 1-4, leaving data from gadgets 5 and 6 for the test set.
-This will ensure the trained models are tested on completely new data. 
-
-\hl{For more information on the dataset and use case, please see []}
-\hyperlink{gitub repo}{https://github.com/Unikie/predictive-maintenance-tutorial}
+This will ensure the trained models are tested on completely new data. For more information on the dataset and use case, please see \cite{ahonen}.
 
 \section{Algorithms}
 The following section shortlists and describes algorithms which can be used to train a supervised model. 
@@ -150,7 +148,7 @@ Predictions are made based on the neuron with highest value/probability at the o
 Neurwal networks are self-adaptive through forward and backward propogation using real data
 
 When it comes to reliability it is important to consider the amount of hidden layers and the amount of neurons within.
-Too few hidden layers would represent a linear problem, while additional layers create complexity hence becoming non linear.
+Too few hidden layers would represent a linear problem, while additional layers create complexity hence becoming non linear \cite{4618341}.
 Too few neurones would result in underfitting while too many neurons would not only cause overfitting but also significantly increase the training time.
 
 \begin{figure}[h]
@@ -247,10 +245,11 @@ The results are depicted in Figures \ref{fig:Metric plot}, \ref{fig:AUC}, and Ta
     \end{tabular}
 \end{table}
 
-In Table \ref{table:Metrics}, highlighted are the highest comparison scores between tested algorithms.
-The ensemble method Random Forests is evidently the most suited method to this predictive maintenace application.
+In Table \ref{table:Metrics}, highlighted are the most optimal comparison scores between tested algorithms.
+The ensemble method, Random Forests, is evidently the most suited method to this predictive maintenace application.
 Linear Regression delivered the highest accuracy meaning it was able to make correct predictions the best. 
-However, it did not perform well in the other metrics. This highlights that algorithm evaluation cannot be determined based on accuracy alone.
+However, it did not perform well in the other metrics. 
+This highlights that algorithm evaluation cannot be determined based on accuracy alone and is supported by the study \cite{8320256}.
 
 To ensure reliability and robustness, the goals of the use case should be considered and may contradict performance metrics.
 In this scenario, a True Positive (TP) case where the predicted failures are actual failures should take precedence as this is the money saving factor. 
@@ -311,9 +310,49 @@ In this application, the random Forest algorithm produced the lowest error value
 When comparing these results to those of our previous classification experiement, it is clear that enseble methods perform the best, specifically, Random Forest. 
 It should also be noted that SVM outperformed knn in the classification experiement but performed worse in the RUL regression study.
 
+\bigskip
+It is also important consider other applications of AI/ML to better understand reliability of potential algorithms.
+Hence, moving away from predictive maintenance, \cite{8300383} is a study of supervised learning techniques for classification of different internal PD (partial discharge) patterns from a generator.
+Analysis was conducted by considering 96 features for each PD pattern.
+A total of 9 algorithms under four learning were tested where wach was tested for accuracy, ROC, precision and recall.
+
+\begin{itemize}
+    \item Functional Based Techniques
+    \begin{itemize}
+        \item Logistic Regression
+        \item SVM
+        \item Multi-layer Perceptron (MLP) - Neural Network
+    \end{itemize}
+    \item Probabilistic
+    \begin{itemize}
+        \item Naive Bayes
+    \end{itemize}
+    \item Decision Tree Models
+    \begin{itemize}
+        \item J-48
+        \item Random Forest (RF)
+        \item Random tree
+        \item AdaBoost
+    \end{itemize}
+    \item Nearest Neighbours
+    \begin{itemize}
+        \item Instant Based-k (IBK)
+    \end{itemize}
+\end{itemize}
 
 \bigskip
-\hl{add another study}
+\begin{table}[h]
+    \caption{PD Algorithms accuracy, RUC, precision and recall scores \cite{8300383}}
+    \begin{figure}[H]
+        \includegraphics[scale=0.6]{PD_supervised_comparison.png}
+        \centering
+    \end{figure}
+    \label{fig:PD_table}
+\end{table}
+
+Generally, all algorithms have performed reasonably well. However, the Functional Based Techniques outperformed other techniques in accuracy scores. 
+Naive Bayes performed the worst, having the lowest accuracy score and was unable to achieve a 100\% rate in any of the four classes.
+
 
 \section{Recommendations}
 Above sections highlight the importance of correct model spcifications. Previous assumptions and expectations may not always be correct.
@@ -326,3 +365,5 @@ Assign a weight or cost to each output of the confusion matrix
 Research specific use case scenario to find suitable algorithms through proven research}
 % https://pdf.sciencedirectassets.com/271506/1-s2.0-S0957417417X00109/1-s2.0-S0957417417302397/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEF4aCXVzLWVhc3QtMSJGMEQCIC53FsqmSpjp%2BQZj9Uvlsnq4pWNYncx8FF2OQ23FmKgkAiAcXvDwMGwRjH0UYxFOV3NaELWAqNC04I378835HV8Ddyq9Awi3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAMaDDA1OTAwMzU0Njg2NSIMYqA70v0TzrNak19iKpEDBvqMBBuWJ0aYNJouVwXQ35CXZg6ARpd5zZsgttN8QGD%2B3j4NV2v289xxiDQQNfltw6POyIApxTgYr6jp4s5S5FwYqdYy6xIZDl7XbC7IY7chzx3bV5bs%2BdRhZcW8WJPnHAjuH6yC6%2BtUY8e7nk5k2WYsdLfkV8Tk2qYpnSqkjyK1cCTM55SOwbgcNJ0w%2Fpo8PJq3mdzi8kI9fD9DFv8wVsDUs0dRXp2jPtTTduTIhNwGa4JgLTh1xplV23kKewbIalHtdNFiqPZB%2Bbr%2FITjQSbWAlwvorEiq31BbESWXfTIIlxQdixRt20XOCypDeG2RrsBe3jPt3t3DBVNF4%2BOkNE2%2BaWmbtgcekVFXZEsTpRRMirynYAJ3FKpj%2BRck%2FKKxUQ9UjqhrMkQrDvXfcqo5QrWlvI4uGPiNoec5Z%2F6bRMXdDgDWP%2FvXQ6Q86YA%2BOLvbiNWgQTfmUFYT8fFgsljtVqiov7W%2BRNWA2Vj%2F%2BKsxtdc7Ok%2BOhxSE%2F9JS%2BSemJuBxJmSlbQqOr8DPQHYlp6h4YxMwl8DPgwY67AGgOpD6YmdbpnxG6nEHk1pw57wlOHkaF2iNo4FC9KM8jegDXaKv0LtK3bBsAigrskq4QKpZXpaAopbnKphKhfoOYrdmgIm7Ba0V44nNPSe46I5%2FsBikWMh3ZQ6s7lqBT1EQa4ds5NQAhi26Vf02PMgLXLk67acqUys0Go%2FKgQv2reuep1GgeOilitWRdjJwkwe07XUnJbNGMMcYNVvqgn%2FikKG4gZzshEt142pOV5N2lNfJbn7GleRVzP6u5NW1NwKmnbDm50JZ5iGgFV3pOpErKyuMC8JoEc3vDhF35jJ6tITkIHuvGvxGACX4iw%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210412T063232Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTY6KJJLFFB%2F20210412%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=3a49f5dce9775617b98bcc583609d05d8482af9edf219e50219977b74ba83b62&hash=8a44df99adabed4a00d5099a66fae6484d6654bda9d1402f88f056bc364a2330&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S0957417417302397&tid=spdf-75df757c-2550-4170-8694-4099a14ded3c&sid=c7d6cc998d9f344cac299b155f55848b59cbgxrqa&type=client
 % https://www-sciencedirect-com.ezproxy.lib.uts.edu.au/science/article/pii/S0360835219304838?via%3Dihub
+
+The following studey, \cite{7724478} provides advantages and disadvantages of some supervised learning techniques and suggests appropriate use cases for each algorithm.

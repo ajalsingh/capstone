@@ -3,7 +3,7 @@
 Bias is the result of inadequate data where a certain group or class is favoured over another/others hence creating an overrepresentation \cite{Jiang}\cite{saria2019tutorial}.
 ML models trained using such datasets will acquire these underlying biases hence making incorrect predictions.
 
-The following mathematical framework developed by researches at Google can be used as a representation to undestand bias in data \cite{Jiang}
+The following mathematical framework developed by researchers at Google can be used as a representation to undestand bias in data \cite{Jiang}
 
 \begin{figure}[h]
     \includegraphics[scale =0.8]{Assumption.png}
@@ -48,7 +48,7 @@ Each cycle of data reading contains the following measurements:
 \begin{table}[H]
     \begin{center}
         \caption{Measurements Dataset} 
-        \begin{tabular}{ l|l } 
+        \begin{tabular}{ ll } 
          \toprule
          \textbf{Measurement} & \textbf{Description} \\  [0.5ex] 
          \midrule
@@ -74,7 +74,7 @@ where positive classification of device failure occurs when the time remaining t
     \begin{center}
         \caption{Maniupulated data labels}
         \label{table:labels} 
-        \begin{tabular}{l|l}
+        \begin{tabular}{ll}
             \toprule
             \textbf{Labels} & \textbf{Description} \\ [0.5ex]
             \midrule
@@ -95,7 +95,7 @@ Concsequently, the test dataset was also split into 'Sample 1' and 'Sample 2' in
     \begin{center}
         \caption{Training and Testing Datasets}
         \label{table:datasets} 
-        \begin{tabular}{l|l|l}
+        \begin{tabular}{lll}
             \toprule
             \textbf{Dataset} & \textbf{Size} &\textbf{Description} \\ [0.5ex]
             \midrule
@@ -110,24 +110,18 @@ Concsequently, the test dataset was also split into 'Sample 1' and 'Sample 2' in
     \end{center}
 \end{table}
 
-\section{Results}
+\section{Experimental Results}
 It has previously been assumed that bias occurs when one type of sample is over represented over another/others.
 By training a model with DF1 or DF2 dataset instead of the Full Train dataset, samples of certain devices have been completely overlooked and hence bias exists within DF1 and DF2. 
 Using Table (\ref{table:Bias}), we can compare the metrics of Full Train, DF1 and DF2 sets when tested against the Full Test set.
 Although DF1 improves amongst most metrics of the Full Test, we observe a deacrease in performance in the model trained with DF2.
 The increase in metrics of DF1 may suggest higher importance of those samples over DF2 but it is difficult to be certain due to the small dataset size (under 1000 samples).
 
-In the case of Environmental Datashift, we take a scenario where a model is trained on dataset DF1.
-Remembering DF1 and Sample 1 datasets are only concerned with samples from Gadgets 1, 2 \& 3, it is expected that this combination will offer the highest results.
-Experimental results in Table (\ref{table:Bias}) and the plots in Figures (\ref{fig:DF1}) \& (\ref{fig:DF2}) back this claim. 
-Continuing further, testing the model with Full Test yields the next best results as it contains a mix of already seen and completely new samples.   
-Performance is affected severely when the model is tested using DF2 as the samples have irregularities when compared to training data.
-This model is not robust enough to generalise to new samples and solutions are offered in subsequent sections. 
-
+% \enlargethispage{5\baselineskip}
 \bigskip
 \begin{table}[H]
     \begin{center}
-        \caption{PDM Label Bias and Environmental Datashift Evaluation Results}
+        \caption{PDM Label Bias and Environmental Datashift Evaluation Results - SVM}
         \label{table:Bias}
         \begin{tabular}{lccccccc}
             \toprule
@@ -140,31 +134,105 @@ This model is not robust enough to generalise to new samples and solutions are o
             \textbf{Recall}     &0.78   &0.79   &0.82   &0.67   &0.77       &0.78   &0.74\\
             \textbf{F1 Score}   &0.82   &0.82   &0.85   &0.74   &0.81       &0.82   &0.79\\
             % \midrule
-            % \bottomrule
+            \bottomrule
         \end{tabular}
     \end{center}
 \end{table}
 
+\enlargethispage{\baselineskip}
+In the case of Environmental Datashift,\textit{
+"modelers typically assume that training data
+is representative of the target population or environment where
+the model will be deployed" - \cite{saria2019tutorial}}
+We take a scenario where a model is trained on dataset DF1.
+Remembering DF1 and Sample 1 datasets are only concerned with samples from Gadgets 1, 2 \& 3, it is expected that this combination will offer the highest results.
+Experimental results in Table (\ref{table:Bias}) and the plots in Figures (\ref{fig:DF1}) \& (\ref{fig:DF2}) back this claim. 
+Moving further, testing the model with Full Test yields the next best results as it contains a mix of already seen and completely new samples.   
+Performance is affected severely when the model is tested using DF2 as the samples have irregularities when compared to training data.
+The same observations can be made when training the model on DF2 dataset.
+This model is not robust enough to generalise to new samples and solutions are offered in subsequent sections. 
+
 \begin{figure}[H]
-    \includegraphics[scale =0.8]{Bias_DF1.png}
+    \includegraphics[scale =0.75]{Bias_DF1.png}
     \centering
-    \caption{Test Datasets on DF1 metrios}
+    \caption{Test Datasets on DF1 metrics}
     \label{fig:DF1}
 \end{figure}
+
 \begin{figure}[H]
-    \includegraphics[scale =0.8]{Bias_DF2.png}
+    \includegraphics[scale =0.75]{Bias_DF2.png}
     \centering
-    \caption{Test Datasets on DF2 metrios}
+    \caption{Test Datasets on DF2 metrics}
     \label{fig:DF2}
 \end{figure}
 
-\hl{Consider noise in dataset due to uneccassry labels}
 
-Datashift:
-\hl{The issue is that modelers typically assume that training data
-is representative of the target population or environment where
-the model will be deployed} \cite{saria2019tutorial}
+% \hl{Consider noise in dataset due to uneccassry labels}
 
 \section{Further Research}
+Research performed in \cite{Jiang}, offers solutions to deal with biased datasets and compares these solutions across various datasets.
+The following datasets were used in this experiment:
+\begin{itemize}
+    \item Bank Marketing - Prediction of subscription to bank product using age as the protected attribute
+    \item Communities \& Crime - Determine wheter a community has a high crime rate. Four race features are used as protected attributes
+    \item ProPublicas COMPAS - Predict recidivism based on a number of factors. Protected attributes are two race based and two gender biased
+    \item German Statlog Credit Data - Predict good or bad credit rating. Two protected groups seperated by age.
+    \item Adult Income - Predict if individual income is greater than \$50k. Two protected groups based on gender and another two groups based on race.
+\end{itemize}
+
+\enlargethispage{\baselineskip}
+\begin{table}[H]
+    \bigskip
+    \caption{Benchmark Fairness Tests on Multiple Datasets \cite{Jiang}}
+    \begin{figure}[H]
+        \includegraphics[scale=0.65]{label_bias.png}
+        \centering
+    \end{figure}
+    \label{table:fairness}
+\end{table}
+
+As can be viewed in Table \ref{table:Bias} all models were trained initially without any attempt to solve the bias problem (Unc.).
+Following on, Post-processing, Lagrangian Approach and a newly proposed method were applied and tested for fairness violation.
+It is observed that implementation of all approaches increases fairness as the violation decreases when compared to Uncalibrated results.
+
+\bigskip
+A study carried out by Samsung Research \cite{8953715} performs experimentation on data bias and environmental datashift with Deep Neural Networks in a similar fashion to our own experiment in the previous section.
+
+\begin{table}[H]
+    % \bigskip
+    \caption{Evaluation Results on Dogs and Cats Dataset \cite{8953715}}
+    \begin{figure}[H]
+        \includegraphics[scale=0.95]{samsung_TB.png}
+        \centering
+    \end{figure}
+    \label{table:Dogs and Cats}
+\end{table}
+
+\begin{table}[H]
+    % \bigskip
+    \caption{Evaluation Results on IMDB Face Dataset \cite{8953715}}
+    \begin{figure}[H]
+        \includegraphics[scale =0.95]{Samsung_EB.png}
+        \centering
+    \end{figure}
+    \label{table:IMDB}
+\end{table}
+
+Bias was deliberately produced within three different datasets in this study investigate the algorithm's ability to unlearn bias. 
+We are only concerned with the Dogs and Cats dataset and IMDB Face datasets.
+The Dogs and Cats dataset consisted of 25,000 images which was then divided between TB1 and TB2 according to the colour of dogs/cats to produce bias as desired.
+This method of segregation ensures any sample in TB2 will not be found in TB1 and vice-versa.
+The Test dataset consisted 12,500 images. 
+
+The IMDB Face dataset was also segregated in a similar manner.
+The Test set accounted for 20\% of the entire dataset and the remaining was used for training.
+EB1 and EB2 datasets were formed based on age and gender of actors. There was no common data samples between any of these datasets.
+
+By observing results presented in Tables (\ref{table:Dogs and Cats} \& \ref{table:IMDB}), the effects of environmental datashift become apparent.
+When trained on TB1/EB1, networks tested on the full Test sets always perform better as the network is unable to generalise well enough to TB2/EB2.
+However, the experiment also proves thats methods can be implemented to claw back some of the lost performance. 
+Examining the Dogs and Cats dataset, the baseline result shows approximately 20\% reduction in performance on networks tested on TB1/2 when compared to the Test set.
+All evaluated methods are able to improve the percentage difference between biased datasets and the Test set. 
+The best method is able to bring the percentage difference down to approximately 5\%.
 
 \section{Recommendations}

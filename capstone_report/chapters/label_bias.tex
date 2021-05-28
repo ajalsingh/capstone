@@ -198,6 +198,16 @@ It is observed that implementation of all approaches increases fairness as the v
 \bigskip
 A study carried out by Samsung Research \cite{8953715} performs experimentation on data bias and environmental datashift with Deep Neural Networks in a similar fashion to our own experiment in the previous section.
 
+Bias was deliberately produced within three different datasets in this study investigate the algorithm's ability to unlearn bias. 
+We are only concerned with the Dogs and Cats dataset and IMDB Face datasets.
+The Dogs and Cats dataset consisted of 25,000 images which was then divided between TB1 and TB2 according to the colour of dogs/cats to produce bias as desired.
+This method of segregation ensures any sample in TB2 will not be found in TB1 and vice-versa.
+The Test dataset consisted 12,500 images. 
+
+The IMDB Face dataset was also segregated in a similar manner.
+The Test set accounted for 20\% of the entire dataset and the remaining was used for training.
+EB1 and EB2 datasets were formed based on age and gender of actors. There was no common data samples between any of these datasets.
+
 \begin{table}[H]
     % \bigskip
     \caption{Evaluation Results on Dogs and Cats Dataset \cite{8953715}}
@@ -218,16 +228,6 @@ A study carried out by Samsung Research \cite{8953715} performs experimentation 
     \label{table:IMDB}
 \end{table}
 
-Bias was deliberately produced within three different datasets in this study investigate the algorithm's ability to unlearn bias. 
-We are only concerned with the Dogs and Cats dataset and IMDB Face datasets.
-The Dogs and Cats dataset consisted of 25,000 images which was then divided between TB1 and TB2 according to the colour of dogs/cats to produce bias as desired.
-This method of segregation ensures any sample in TB2 will not be found in TB1 and vice-versa.
-The Test dataset consisted 12,500 images. 
-
-The IMDB Face dataset was also segregated in a similar manner.
-The Test set accounted for 20\% of the entire dataset and the remaining was used for training.
-EB1 and EB2 datasets were formed based on age and gender of actors. There was no common data samples between any of these datasets.
-
 By observing results presented in Tables (\ref{table:Dogs and Cats} \& \ref{table:IMDB}), the effects of environmental datashift become apparent.
 When trained on TB1/EB1, networks tested on the full Test sets always perform better as the network is unable to generalise well enough to TB2/EB2.
 However, the experiment also proves thats methods can be implemented to claw back some of the lost performance. 
@@ -235,4 +235,87 @@ Examining the Dogs and Cats dataset, the baseline result shows approximately 20\
 All evaluated methods are able to improve the percentage difference between biased datasets and the Test set. 
 The best method is able to bring the percentage difference down to approximately 5\%.
 
+\pagebreak
 \section{Recommendations}
+\subsection{Pre-processing} 
+When it comes to creating ML models for fair and unbiased predictions, the first area of investigation should be the data.
+In \cite{saria2019tutorial} and accompanying material, the issue of inadequate data is presented where the limited availability of data on minor subsets creates negative bias towards that sub-population.
+Issues of this nature arise when when the model is tested on the broader dataset where the resulting performance is rated highly and performance on individual subsets is not evaluated.
+Therefore, it is important to measure performance on all sub-populations to determine and understand the true performance of the ML model.
+
+Another method to diagnose and identify reliability concerns if the sub-pupulations of interest are initially unknown 
+would be to cluster the input space into regions of high and low density.
+In low density regions, we would then need to investigate the regions to identify any correlation with attributes of concern or importance.
+
+In cases where the performance in any one of the sub-populations is not up to standard, the simple remedy to this issue would be to collect or use data which better represents sub-pupulations of interest.
+This could be the use of more data, or use of more quality data in general.
+Another solution is to try and modify the objective function to balance out the sub-populations. 
+Therefore, the underperforming data is given a higher weight and/or decrease the wight of data which is overrepresented. 
+
+When developing ML models which are invariant and are able to generalise well to shifts in data, 'reactive' solutions are predominantly offered.
+This involves optimising the model for its intended environment by using unlabeled data samples from the target distribution.
+This optimisation is usually carried out by implementing various techniques such as reweighting in order to adapt to the new deployment environment.
+However, reactive methods are only useful when the actual environment data is available for investigation. 
+
+In situations were we cannot anticipate this change in environment, proactive solutions are preferred.
+Proactive solutions teach the model to protect from likely problematic shifts by forecasting possible shifts.
+In \cite{subbaswamy2019preventing}, a framework is presented to teach predicitive models to 'transport' or adapt to dataset shift.
+This framework uses directed acyclic graphs (DAGs) to represent how data shifts from unstable to stable environments in the data generation process (DGP).
+Here $X$ are the inputs, and $T$ is prediction. The result, $T$ given $X$ is stable (doesn't change over time).
+The selection variable, $S$ indicates what is likely to change. The use of DAGs assists in the identification of shifts which need to be protected against.
+
+\begin{figure}[H]
+    \includegraphics[scale=0.3]{datashiftgraphs.png}
+    \centering
+    \caption{Representing datashift as graphs \cite{subbaswamy2019preventing}}
+    \label{fig:DAG}
+\end{figure}
+
+Once these invariant features have been identified, they can be fed through the 'surgey estimator' algorithm from \cite{subbaswamy2019preventing}.
+The algorithm will then output the parts of the graph that should be learned and the parts which should be ideally ignored.
+The parts that shouldn't be learned contain unstable relations which will ultimately lead to the inability to generalise.
+
+\subsection{Post-processing}
+There may be scenarios where pre-processing approaches may be inapplicable or have been exhausted without successfully removing unwanted bias.
+Post-processing approaches are generally 'black-box' which signifies that it does not need access to the training process or any other internal hence making them suitable in run-time settings.
+
+While many post-processing methods are available, IBM Research has proposed a post-processing method which aims to increase group and individual fairness \cite{lohia2018bias}.
+Group fairness is defined as the equal measure of segregation of the total population into groups such as gender or race. 
+Individual fairness is the notion of individuals being treated fairly and is more difficult in terms of computation.
+
+The method involves training an individual bias detector, $\hat{b}$, using dataset, \\ 
+$\{(x_1,\beta_1), ..., (x_m,\beta_m)\}$ once the classifier $\hat{y}$ has been trained.
+Alongside will be a validation dataset which contains no labels.
+Some of the samples in this dataset will have individual bias while others will not.
+The bias detector will generalise to new examples whose level of bias is unknown.
+
+After the individual bias detector has been trained, we can apply the bias mitigation algorithm \cite{lohia2018bias} in real-time. 
+The algorithm is provided below:  
+
+
+\begin{algorithm}[H]
+\SetAlgoLined
+Given the classifier $\hat{y}$, which is trained on training set ${(x_i, d_i, y_i)}$ \\
+Given validation set $\{x_j | d_j = 0\}$\\
+Compute individual bias, $\{b_{S,j}|d_j=0\}$\\
+\eIf{$b_{S,j} > \tau$}{
+    $\beta_j \leftarrow 1$
+}{
+    $\beta_j \leftarrow 0$
+}
+Formulate supplementary dataset, $\{(s_j,\beta_j)|d_j = 0 \}$\\
+Train individual bias detector, $\hat{b}$ on supplementary dataset\\
+\ForAll{run-time test samples $(x_k,d_k)$}{
+    $\hat{y}_k \leftarrow \hat{y}(x_k,d_k)$\\
+    \eIf{$d_k == 0$}{
+        $\hat{b}_k \leftarrow \hat{b}(x_k)$\\
+        \eIf{$\hat{b}_k == 1$}{
+            $\hat{y}_k \leftarrow \hat{y}(x_k,1)$
+        }{
+            $\hat{y}_k \leftarrow \hat{y}_k$
+        }}{
+            $\hat{y}_k \leftarrow \hat{y}_k$
+        }
+}
+\caption{Group and Individual Bias Mitigation Algorithm \cite{lohia2018bias}}
+    \end{algorithm}

@@ -33,6 +33,7 @@
 \usepackage[nottoc, numbib, notlof, notlot]{tocbibind}
 \usepackage{nomencl}
 \usepackage{multirow}
+\usepackage{rotating}
 \usepackage[algo2e]{algorithm2e} 
 \DeclareRobustCommand{\bbone}{\text{\usefont{U}{bbold}{m}{n}1}}
 
@@ -106,5 +107,8 @@
 \renewcommand{\bibname}{References}
 \bibliographystyle{ieeetr}
 \bibliography{references}
+
+% Appendix
+\input{chapters/appendix.tex}
 
 \end{document}

@@ -1,43 +1,121 @@
 %% Label Bias and Environmental Datashift
 \chapter{Label Bias and Environmental Datashift}
+\section*{Label Bias}
 Bias is the result of inadequate data where a certain group or class is favoured over another/others hence creating an overrepresentation \cite{Jiang}\cite{saria2019tutorial}.
 ML models trained using such datasets will acquire these underlying biases hence making incorrect predictions.
 
-The following mathematical framework developed by researchers at Google can be used as a representation to undestand bias in data \cite{Jiang}
+The following mathematical framework, developed by researchers at Google, can be used as a representation to undestand bias in data \cite{Jiang}.
 
-\begin{figure}[h]
-    \includegraphics[scale =0.8]{Assumption.png}
-    \centering
-    \caption{Bias Assumption \cite{Jiang}}
-    \label{fig:Assumption}
-\end{figure}
+% \begin{figure}[h]
+%     \includegraphics[scale =0.8]{Assumption.png}
+%     \centering
+%     \caption{Bias Assumption \cite{Jiang}}
+%     \label{fig:Assumption}
+% \end{figure}
+\bigskip
+\begin{center}
+    \begin{tabular}{l}
+        \textbf{Assumption 1: }Presume fairness constraints are $c_1, ..., c_K$,\\
+        where $y_{true}$ is biased, namely $\EX_{x\sim p}[\langle y_{true}(x), c_k(x)\rangle] = 0$ for $k \in [K]$\\
+        Assuming that $\in_1, ..., \in_k \in \R$ exists and the observed biased label \\
+        function, $y_{bias}$ is the solution of the following equation.
+    \end{tabular}
 
-In figure \ref{fig:Assumption}, the assumption is that $y_{bias}$ is the label which is closest to $y_{true}$ and achieves a measure of bias.
+    \begin{equation}
+        \label{eq:assumption}
+        \begin{split}
+            & \underset{\hat{y}:\chi\rightarrow[0,1]}{\text{arg min}}  \EX_{x\sim P}[D_{KL}(\hat{y}(x)||y_{true}(x))]\\
+            & \text{s.t} \EX_{x\sim P}[\langle\hat{y}(x),c_k(x)\rangle] = \in_k \\
+            & \text{for } k = 1, ..., K.
+        \end{split}
+    \end{equation}
+    $D_{KL}$ signifies KL-divergence
+\end{center}
+
+\bigskip
+In figure (\ref{eq:assumption}), the assumption is that $y_{bias}$ is the label which is closest to $y_{true}$ and achieves a measure of bias.
 In cases where data has been manually manipulated by human input, either consciously or subconsciously, this is deemed to be a reasonable assumption.
 The contiguity to $y_{true}$ is given by the KL-divergance, which is used to establish the notion of accurate labeling. 
-The Proposition in figure \ref{fig:Proposition} is derived from the KL-divergence. (For complete proof of proposition, see \cite{Jiang})
+The Proposition in figure (\ref{eq:Proposition}) is derived from the KL-divergence. (For complete proof of proposition, see \cite{Jiang})
+\enlargethispage{-2\baselineskip}
+% \begin{figure}[h]
+%     \includegraphics[scale =0.8]{Prop.png}
+%     \centering
+%     \caption{Bias Proposition \cite{Jiang}}
+%     \label{fig:Proposition}
+% \end{figure}
 
-\begin{figure}[h]
-    \includegraphics[scale =0.8]{Prop.png}
-    \centering
-    \caption{Bias Proposition \cite{Jiang}}
-    \label{fig:Proposition}
-\end{figure}
+\bigskip
+\begin{center}
+    \begin{tabular}{l}
+        \textbf{Proposition 1: } Presume Assumption 1 holds, \\
+        $y_{bias}$ satisfies the following equation (for $x \in \chi \text{ and } y \in y$) \\
+    \end{tabular}
 
-Now that $y_{bias}$ is represented in terms of $y_{true}$, we can infer $y_{true}$ in terms of $y_{bias}$ as represented in Figure \ref{fig:Corollary}.
+    \begin{equation}
+        \label{eq:Proposition}
+        \begin{split}
+            & y_{bias}(y|x) \text{ }\alpha \text{ } y_{true}(y|x) \cdot \text{exp} \Bigg\{ -\sum^K_{k=1} \lambda_k \cdot c_k(x,y)\Bigg\} \\
+            & \textit{for some } \lambda_1, ..., \lambda_K \in \R
+        \end{split}
+    \end{equation}
+\end{center}
 
-\begin{figure}[h]
-    \includegraphics[scale =0.8]{corollary.png}
-    \centering
-    \caption{Bias Corollary \cite{Jiang}}
-    \label{fig:Corollary}
-\end{figure}
+\bigskip
+Now that $y_{bias}$ is represented in terms of $y_{true}$, we can infer $y_{true}$ in terms of $y_{bias}$ as represented in Figure (\ref{eq:Corollary}).
 
+% \begin{figure}[h]
+%     \includegraphics[scale =0.8]{corollary.png}
+%     \centering
+%     \caption{Bias Corollary \cite{Jiang}}
+%     \label{fig:Corollary}
+% \end{figure}
+
+\bigskip
+\begin{center}
+    \begin{tabular}{l}
+        \textbf{Corollary 1: } Presume Assumption 1 still holds. \\
+        The unbiased label function, $y_{bias}$ is nor represented as:
+    \end{tabular}
+
+    \begin{equation}
+        \label{eq:Corollary}
+        \begin{split}
+            & y_{true}(y|x) \text{ }\alpha \text{ } y_{bias}(y|x) \cdot \text{exp} \Bigg\{ \sum^K_{k=1} \lambda_k \cdot c_k(x,y)\Bigg\} \\
+            & \textit{for some } \lambda_1, ..., \lambda_K \in \R
+        \end{split}
+    \end{equation}
+\end{center}
+
+\section*{Datashift}
 There may be situations where performance issues may not be apparent during training stages. 
 They instead appear post-deployment where training and deployment datasets can have irregularities. 
 This is known as Environmental Datashift \cite{saria2019tutorial}. 
 This calls into question whether the ML model is robust enough to generalise well to new samples beyond training, or whether it tends to over-generalise to the training dataset thus resulting in unreliability in the real world.
-\hl{maths}
+
+In \cite{shift}, datashift has been mathematically modelled in two scenarios as follows:
+
+Assuming classifier, $\mathcal{F}$ has been fairly trained with true labels, $Z$, at $t = 0$ (where $t = 0$ signifies time of training and $t = 1$). signifies a new timestep).
+Parameters such as binary classification and probability of privelaged and distadvantaged class, $\zeta_A$,  $\zeta_B$, $\rho_A$ and $\rho_B$ respectively,
+may change from  $t = 0$ to $t = 1$.
+
+The first scenario being when there is no access to the new labels at $t = 1$. 
+Therefore the structure of the bias model at $t = 1$ is not apparent, but $Z$ has changed.
+Consequently, $\zeta_A \text{ and } \zeta_B$ have also changed. 
+We can assume:
+\begin{align*}
+    \text{label shift: } & P(B)_{t=0} = P(B)_{t=1} \\
+    \text{covariate shift: } & P(B)_{t=0} \neq P(B)_{t=1}
+\end{align*}
+
+The second scenario is when there is access to the new biased labels, 
+in cases where deployment environment data is collected to validate the bias model at $t = 1$.
+There are two viable causes for shift, true distribution changes and bias model changes.
+
+True distribution changes are alike to the first scenario where distribution, $\mathcal{D}_{t=1} \neq \mathcal{D}_{t=0}$.
+In bias model changes, the true distribution labels may be the same but label shift has occured as a result of changing $\mathcal{G}$.
+This also means probability, $p_A$ and/or $p_B$ could have also changed resulting in concept shift.
+
 
 \section{Dataset \& Preprocessing}
 The predictive maintenance dataset \cite{ahonen} will be used to model bias and environmental datashift while classifying failures of an ioT gadget/s.
@@ -294,28 +372,28 @@ The algorithm is provided below:
 
 
 \begin{algorithm}[H]
-\SetAlgoLined
-Given the classifier $\hat{y}$, which is trained on training set ${(x_i, d_i, y_i)}$ \\
-Given validation set $\{x_j | d_j = 0\}$\\
-Compute individual bias, $\{b_{S,j}|d_j=0\}$\\
-\eIf{$b_{S,j} > \tau$}{
-    $\beta_j \leftarrow 1$
-}{
-    $\beta_j \leftarrow 0$
-}
-Formulate supplementary dataset, $\{(s_j,\beta_j)|d_j = 0 \}$\\
-Train individual bias detector, $\hat{b}$ on supplementary dataset\\
-\ForAll{run-time test samples $(x_k,d_k)$}{
-    $\hat{y}_k \leftarrow \hat{y}(x_k,d_k)$\\
-    \eIf{$d_k == 0$}{
-        $\hat{b}_k \leftarrow \hat{b}(x_k)$\\
-        \eIf{$\hat{b}_k == 1$}{
-            $\hat{y}_k \leftarrow \hat{y}(x_k,1)$
-        }{
-            $\hat{y}_k \leftarrow \hat{y}_k$
-        }}{
-            $\hat{y}_k \leftarrow \hat{y}_k$
-        }
-}
-\caption{Group and Individual Bias Mitigation Algorithm \cite{lohia2018bias}}
-    \end{algorithm}
+    \SetAlgoLined
+    Given the classifier $\hat{y}$, which is trained on training set ${(x_i, d_i, y_i)}$ \\
+    Given validation set $\{x_j | d_j = 0\}$\\
+    Compute individual bias, $\{b_{S,j}|d_j=0\}$\\
+    \eIf{$b_{S,j} > \tau$}{
+        $\beta_j \leftarrow 1$
+    }{
+        $\beta_j \leftarrow 0$
+    }
+    Formulate supplementary dataset, $\{(s_j,\beta_j)|d_j = 0 \}$\\
+    Train individual bias detector, $\hat{b}$ on supplementary dataset\\
+    \ForAll{run-time test samples $(x_k,d_k)$}{
+        $\hat{y}_k \leftarrow \hat{y}(x_k,d_k)$\\
+        \eIf{$d_k == 0$}{
+            $\hat{b}_k \leftarrow \hat{b}(x_k)$\\
+            \eIf{$\hat{b}_k == 1$}{
+                $\hat{y}_k \leftarrow \hat{y}(x_k,1)$
+            }{
+                $\hat{y}_k \leftarrow \hat{y}_k$
+            }}{
+                $\hat{y}_k \leftarrow \hat{y}_k$
+            }
+    }
+    \caption{Group and Individual Bias Mitigation Algorithm \cite{lohia2018bias}}
+\end{algorithm}

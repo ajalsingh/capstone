@@ -90,7 +90,7 @@ The performance of SVMs can be further improved by implementing kernel methods. 
 \begin{figure}[h]
     \includegraphics[scale=0.7]{SVM_kernel.png}
     \centering
-    \caption{Popular Kernel Functions \cite{6653952}}
+    % \caption{Popular Kernel Functions \cite{6653952}}
     \label{fig:kernel}
 \end{figure}
 
@@ -122,12 +122,12 @@ This can be problematic when used on noisy datasets. Cross validation can be use
 Random Forest is an ensemble machine learning method which creates multiple random decision trees and combines their respective votes (classification) or averages (regression) to improve prediction accuracy and fitting \cite{rf}.
 
 % \enlargethispage{3\baselineskip}
-\begin{figure}[h]
-    \includegraphics[scale=0.7]{random_forest.png}
-    \centering
-    \caption{Random Forest Algorithm \cite{rf}}
-    \label{fig:RF}
-\end{figure}
+% \begin{figure}[h]
+%     \includegraphics[scale=0.7]{random_forest.png}
+%     \centering
+%     \caption{Random Forest Algorithm \cite{rf}}
+%     \label{fig:RF}
+% \end{figure}
 
 This algorithm is able to perform very well on huge datasets with thousands of variables. 
 It is able to achieve high accuracy scores without overfitting or the need of data pruning \cite{8074494}.
@@ -137,6 +137,35 @@ If the interelationship between two trees begins to increase, so will the error.
 Therefore, this algorithm is able to perform better in high dimensional trees as complxity increases.
  
 For extensive information on the inner workings on Random Forests, see \cite{10.5555/2503308.2343682}
+A brief algorithmic overview of random forests \cite{rf} is shown below:
+
+\begin{algorithm}[H]
+    \SetAlgoLined
+    \begin{enumerate}
+        \item for b = 1 to B:
+        \bigskip
+        \begin{enumerate}
+            \item Draw bootstrap sample $Z*$ of size $N$ from the training data.
+            \item Develop random forest tree, $T_B$ using bootstrapped data. Continuously repeating the subsequent process at each terminal node of the tree, 
+            until minimum node size, $n_{min}$ 
+            \bigskip
+            \begin{enumerate}
+                \item Randomly select $m$ variables from $p$ variables
+                \item Choose the optimal variable/split-point among the $m$ variables.
+                \item Split node into two child nodes
+            \end{enumerate}
+        \end{enumerate}
+        \bigskip
+        \item Output ensemble of trees $\{T_b\}^B_1$
+    \end{enumerate}
+
+    \bigskip
+    To make a prediction at new point, $x$: \\
+    \\
+    \textbf{Classification}: $\hat{C}_{rf}^B(x)$ = majority vote $\{\hat{C}_b(x)\}^B_1$, where $\hat{C}_b(x)$ is the class prediction of the bth random forest tree\\
+    \\\textbf{Resgression}:  $\hat{f}^B_{rf}(x) = \dfrac{1}{B} \sum^B_{b=1}T_b(x)$
+    \caption{Random Forest Algorithm for Classification and Regression \cite{rf}}
+\end{algorithm}
 
 \subsection{Neural Networks}
 Neural Networks are a part of Deep Learning which in turn is a subset of Machine Learning.

@@ -169,8 +169,12 @@ Here the reward function has complete access to historical actions and observati
 However, this approach is susceptible to any intelligent agent that would have the ability to outsmart the reward function and has no preventative measures in place either.
 
 \subsubsection{Belief Based Rewards}
-\hl{Add content here}
-
+Another viable method to solve reward function tampering is to base the rewards on the agent's hidden beliefs instead of history as discussed previously.
+The predicitve model, $P(O_{t+1:m}$ $|$ $O_{1:t}, A_{1:t}, \pi)$, may be used by a predictive model.
+Future predictions, $O_{t+1:m}$, under the policy $\pi$ and when given the observations and actions from the past.
+The relevant parts of the past are summarised by the belief state, $B_t$.
+Therefore, $P(O_{t+1:m}$ $|$ $O_{1:t}, A_{1:t}, \pi) = P(O_{t+1:m}$ $|$ $B_t, \pi)$.
+$B_t$ can then be fed straight into a belief based reward function, $R_t = R(B_t;\theta^R)$.
 
 \subsection{Model Lookahead}
 A viable solution to prevent the model/agent from replacing its reward function (Reward Tampering) is to implelement Model Lookahead.

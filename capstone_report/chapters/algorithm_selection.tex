@@ -119,6 +119,7 @@ The choice of parameter $k$ can impact the models reliability. Too small a value
 This can be problematic when used on noisy datasets. Cross validation can be used to determine the correct $k$ value.
 
 \subsection{Random Forest}
+\label{sec:rand}
 Random Forest is an ensemble machine learning method which creates multiple random decision trees and combines their respective votes (classification) or averages (regression) to improve prediction accuracy and fitting \cite{rf}.
 
 % \enlargethispage{3\baselineskip}
@@ -384,15 +385,70 @@ Naive Bayes performed the worst, having the lowest accuracy score and was unable
 
 
 \section{Recommendations}
-Above sections highlight the importance of correct model spcifications. Previous assumptions and expectations may not always be correct.
-
-\hl{Use ensemble methods and hyperparameter tuning.
-
-It is also important to select appropriate evaluation metrics based on the model type and application.
-Assign a weight or cost to each output of the confusion matrix
-
-Research specific use case scenario to find suitable algorithms through proven research}
+\subsection{Model Assumptions}
+The results from previous sections highlight the importance of correct model specifications. 
+Assumptions and/or expectations made in one use case most likely will not hold true in another application.
+Therefore, assumptions should be refined for every use case.
+A simple example provided in \cite{saria2019tutorial}, involved the use of a linear model on a complex (non-linear) problem.
+\hl{Research specific use case scenario to find suitable algorithms through proven research}
 % https://pdf.sciencedirectassets.com/271506/1-s2.0-S0957417417X00109/1-s2.0-S0957417417302397/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEF4aCXVzLWVhc3QtMSJGMEQCIC53FsqmSpjp%2BQZj9Uvlsnq4pWNYncx8FF2OQ23FmKgkAiAcXvDwMGwRjH0UYxFOV3NaELWAqNC04I378835HV8Ddyq9Awi3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAMaDDA1OTAwMzU0Njg2NSIMYqA70v0TzrNak19iKpEDBvqMBBuWJ0aYNJouVwXQ35CXZg6ARpd5zZsgttN8QGD%2B3j4NV2v289xxiDQQNfltw6POyIApxTgYr6jp4s5S5FwYqdYy6xIZDl7XbC7IY7chzx3bV5bs%2BdRhZcW8WJPnHAjuH6yC6%2BtUY8e7nk5k2WYsdLfkV8Tk2qYpnSqkjyK1cCTM55SOwbgcNJ0w%2Fpo8PJq3mdzi8kI9fD9DFv8wVsDUs0dRXp2jPtTTduTIhNwGa4JgLTh1xplV23kKewbIalHtdNFiqPZB%2Bbr%2FITjQSbWAlwvorEiq31BbESWXfTIIlxQdixRt20XOCypDeG2RrsBe3jPt3t3DBVNF4%2BOkNE2%2BaWmbtgcekVFXZEsTpRRMirynYAJ3FKpj%2BRck%2FKKxUQ9UjqhrMkQrDvXfcqo5QrWlvI4uGPiNoec5Z%2F6bRMXdDgDWP%2FvXQ6Q86YA%2BOLvbiNWgQTfmUFYT8fFgsljtVqiov7W%2BRNWA2Vj%2F%2BKsxtdc7Ok%2BOhxSE%2F9JS%2BSemJuBxJmSlbQqOr8DPQHYlp6h4YxMwl8DPgwY67AGgOpD6YmdbpnxG6nEHk1pw57wlOHkaF2iNo4FC9KM8jegDXaKv0LtK3bBsAigrskq4QKpZXpaAopbnKphKhfoOYrdmgIm7Ba0V44nNPSe46I5%2FsBikWMh3ZQ6s7lqBT1EQa4ds5NQAhi26Vf02PMgLXLk67acqUys0Go%2FKgQv2reuep1GgeOilitWRdjJwkwe07XUnJbNGMMcYNVvqgn%2FikKG4gZzshEt142pOV5N2lNfJbn7GleRVzP6u5NW1NwKmnbDm50JZ5iGgFV3pOpErKyuMC8JoEc3vDhF35jJ6tITkIHuvGvxGACX4iw%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210412T063232Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTY6KJJLFFB%2F20210412%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=3a49f5dce9775617b98bcc583609d05d8482af9edf219e50219977b74ba83b62&hash=8a44df99adabed4a00d5099a66fae6484d6654bda9d1402f88f056bc364a2330&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S0957417417302397&tid=spdf-75df757c-2550-4170-8694-4099a14ded3c&sid=c7d6cc998d9f344cac299b155f55848b59cbgxrqa&type=client
 % https://www-sciencedirect-com.ezproxy.lib.uts.edu.au/science/article/pii/S0360835219304838?via%3Dihub
 
-The following studey, \cite{7724478} provides advantages and disadvantages of some supervised learning techniques and suggests appropriate use cases for each algorithm.
+\hl{The} following studey, \cite{7724478} provides advantages and disadvantages of some supervised learning techniques and suggests appropriate use cases for each algorithm.
+
+
+\subsection{Ensemble Methods}
+Ensemble methods are algorithms which combine multiple ML techniques to find the optimal predictive model in supervised and unsupervised ML problems.
+Generally, they perform much better than single algorithms yielding higher accuracy and reliability.
+The most popopular techniques used are bagging for reduction in variance, boosting for reduction in bias, and stacking to improve quality of predictions.
+Comparisons between various ensemble techniques have been studied in, \cite{7340924}, \cite{8389056} and \cite{1358033}.
+As alluded in Section (\ref{sec:rand}), Random Forests is an example of a bagging method. AdaBoost, as the name suggests, is a popular boosting algorithm.
+
+\subsection{Hyperparamater Tuning}
+Another recommendation for improved reliability is hyperparameter tuning/optimisation.
+This can be used to aid in model design issues such as determining the appropriate number of trees in a random forest,
+depth of decision tree, amount of neural network layers and the amount of neurons in the layers.
+There exists many methods/algorithms for hyperparameter tuning/optimisation. 
+Briefly described below are two algorithms, Bayesian Optimisation \cite{7900023} and Hyperparameter Optitionmisa Machines \cite{7796889}.
+
+\begin{algorithm}[H]
+    \SetAlgoLined
+    \KwIn{Initial observation $D \equiv \{x_{1:p},y_{1:p}\}$}
+    \KwOut{$\{x_n^*,y_n^*\}^T_{n=1}$}
+    \For{$n = 1,2,...,T$}{
+         Find $x_n^* = arg max_x \EX(I(x) | GP(D))$ of (11)\\
+        Calculate objective function: $y_n^* = f(x_n^*)$\\
+        Enhance observation set $D = D \cup (x_n^*,y_n^*)$
+    }
+    \caption{Brief Bayesian Optimisation Algorithm \cite{7900023}}
+\end{algorithm}
+
+\begin{algorithm}[H]
+    \SetAlgoLined
+    \KwIn{Hyperparamater space $\Lambda$ observation history $\mathcal{H}$, transfer function $\mathcal{L}$, 
+    acquisition function a, surrogate model $\Psi$, tradeoff parameter $\alpha$, hyperparam response function $f$ (minimisation operation)
+    total HOM iterations $T$}
+    \KwOut{Most optimal hyperparameter configuration}
+    $\Lambda \leftarrow \emptyset, f-{best} \leftarrow \infty$\\
+
+    \ForAll{$t = 1,...,T$}{
+        \text{ Update: Fit }$\Psi$ to $\mathcal{H}$ \\
+        Predict: $\lambda \leftarrow \text{arg }min_{\lambda\prime \in^\Lambda}(1 - \alpha_t) $
+        $\mathcal{L}(\lambda\prime,\Lambda{t-1})-\alpha_ta (\lambda\prime\Psi)$\\
+        $\Lambda_t \leftarrow \lambda_{t-1} \cup \{\lambda\}$ \\
+        Calculate $f(\lambda)$ \\
+        $\mathcal{H} \leftarrow \mathcal{H} \cup \{(\lambda, f(\Lambda))\}$ \\
+         \\
+        \If{$f(\lambda) < f_{best}$}{
+            $\lambda_{best}, f_{best} \leftarrow \lambda, f(\lambda)$ 
+        }
+    }
+    \Return{$\Lambda_{best}$}
+    
+    \caption{Hyperparamater Optimisation Machines (HOM) }%\cite{7796889}}
+\end{algorithm}
+
+\subsection{Evaluation Metrics}
+\hl{It is also important to select appropriate evaluation metrics based on the model type and application.
+Assign a weight or cost to each output of the confusion matrix}
+s

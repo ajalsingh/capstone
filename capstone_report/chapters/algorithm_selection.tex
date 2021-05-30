@@ -389,13 +389,15 @@ Naive Bayes performed the worst, having the lowest accuracy score and was unable
 The results from previous sections highlight the importance of correct model specifications. 
 Assumptions and/or expectations made in one use case most likely will not hold true in another application.
 Therefore, assumptions should be refined for every use case.
-A simple example provided in \cite{saria2019tutorial}, involved the use of a linear model on a complex (non-linear) problem.
-\hl{Research specific use case scenario to find suitable algorithms through proven research}
-% https://pdf.sciencedirectassets.com/271506/1-s2.0-S0957417417X00109/1-s2.0-S0957417417302397/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEF4aCXVzLWVhc3QtMSJGMEQCIC53FsqmSpjp%2BQZj9Uvlsnq4pWNYncx8FF2OQ23FmKgkAiAcXvDwMGwRjH0UYxFOV3NaELWAqNC04I378835HV8Ddyq9Awi3%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAMaDDA1OTAwMzU0Njg2NSIMYqA70v0TzrNak19iKpEDBvqMBBuWJ0aYNJouVwXQ35CXZg6ARpd5zZsgttN8QGD%2B3j4NV2v289xxiDQQNfltw6POyIApxTgYr6jp4s5S5FwYqdYy6xIZDl7XbC7IY7chzx3bV5bs%2BdRhZcW8WJPnHAjuH6yC6%2BtUY8e7nk5k2WYsdLfkV8Tk2qYpnSqkjyK1cCTM55SOwbgcNJ0w%2Fpo8PJq3mdzi8kI9fD9DFv8wVsDUs0dRXp2jPtTTduTIhNwGa4JgLTh1xplV23kKewbIalHtdNFiqPZB%2Bbr%2FITjQSbWAlwvorEiq31BbESWXfTIIlxQdixRt20XOCypDeG2RrsBe3jPt3t3DBVNF4%2BOkNE2%2BaWmbtgcekVFXZEsTpRRMirynYAJ3FKpj%2BRck%2FKKxUQ9UjqhrMkQrDvXfcqo5QrWlvI4uGPiNoec5Z%2F6bRMXdDgDWP%2FvXQ6Q86YA%2BOLvbiNWgQTfmUFYT8fFgsljtVqiov7W%2BRNWA2Vj%2F%2BKsxtdc7Ok%2BOhxSE%2F9JS%2BSemJuBxJmSlbQqOr8DPQHYlp6h4YxMwl8DPgwY67AGgOpD6YmdbpnxG6nEHk1pw57wlOHkaF2iNo4FC9KM8jegDXaKv0LtK3bBsAigrskq4QKpZXpaAopbnKphKhfoOYrdmgIm7Ba0V44nNPSe46I5%2FsBikWMh3ZQ6s7lqBT1EQa4ds5NQAhi26Vf02PMgLXLk67acqUys0Go%2FKgQv2reuep1GgeOilitWRdjJwkwe07XUnJbNGMMcYNVvqgn%2FikKG4gZzshEt142pOV5N2lNfJbn7GleRVzP6u5NW1NwKmnbDm50JZ5iGgFV3pOpErKyuMC8JoEc3vDhF35jJ6tITkIHuvGvxGACX4iw%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210412T063232Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTY6KJJLFFB%2F20210412%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=3a49f5dce9775617b98bcc583609d05d8482af9edf219e50219977b74ba83b62&hash=8a44df99adabed4a00d5099a66fae6484d6654bda9d1402f88f056bc364a2330&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S0957417417302397&tid=spdf-75df757c-2550-4170-8694-4099a14ded3c&sid=c7d6cc998d9f344cac299b155f55848b59cbgxrqa&type=client
-% https://www-sciencedirect-com.ezproxy.lib.uts.edu.au/science/article/pii/S0360835219304838?via%3Dihub
+A simple example provided in \cite{saria2019tutorial}, involved the illogical use of a linear model on a complex (non-linear) problem.
 
-\hl{The} following studey, \cite{7724478} provides advantages and disadvantages of some supervised learning techniques and suggests appropriate use cases for each algorithm.
+To aid in development of ML models, it is advised to research specific use case scenarios to find suitable algorithms through proven research into performance and reliability factors.
+In \cite{pdm_review}, comprehensive research and review has been performed on machine learning methods within predictive maintenace applications.
+Advantages of various algorithms have been identified in certain applications through experimentation. 
+Therefore it would be beneficial to research for proven methodologies in any specific use case.  
 
+In \cite{10.1016/j.eswa.2017.04.003} extensive comparisons are carried out over various studies on a range of classification applications and algorithms.
+Additionally, the study in, \cite{7724478}, provides advantages and disadvantages of some supervised learning techniques and suggests appropriate use cases for each algorithm.
 
 \subsection{Ensemble Methods}
 Ensemble methods are algorithms which combine multiple ML techniques to find the optimal predictive model in supervised and unsupervised ML problems.
@@ -449,6 +451,44 @@ Briefly described below are two algorithms, Bayesian Optimisation \cite{7900023}
 \end{algorithm}
 
 \subsection{Evaluation Metrics}
-\hl{It is also important to select appropriate evaluation metrics based on the model type and application.
-Assign a weight or cost to each output of the confusion matrix}
-s
+It is also important to select appropriate evaluation metrics based on the model type and application.
+As observed in our earlier experiment in section (\ref{table:Metrics}), accuracy alone cannot be used to evaluate a model's reliability and performance.
+Accuracy is the fraction value of correct predictions made but does not indicate the relationships between other attributes of the model \cite{8320256}.
+A Confusion Matrix is an N x N matrix specifying True Positives (TP), True Negatives (TN), False Positive (FP) and False Negative (FN) instances within the model.
+Other metrics can be derived using the confusion matrix \cite{8320256}.
+Depending on the specific use case, a weight or cost can be assigned to each output of the confusion matrix to indicate importance.
+Table (\ref{table:Evaluation Metrics}) below is a non-exhaustive list of some common evaluation metrics for supervised learning models.
+For evaluation metrics on unsupervised learning models, see \cite{palacioniño2019evaluation}.
+
+\begin{landscape}
+    \begin{table}[H]
+        \centering
+        \caption{Supervised Learning Evaluation Metrics}
+        \label{table:Evaluation Metrics}
+        \begin{tabular}{|l|c|l|}
+            \hline
+            \textbf{Metric}   & \textbf{Equation} & \textbf{Description} \\ \hline
+            \multicolumn{3}{|l|}{\textbf{Classification:}} \\ \hline
+            \multirow{2}{*}{Accuracy} &  \multirow{2}{*}{$\dfrac{TN+TP}{TN+TP+FP+FN}$   }    &  \multirow{2}{*}{Number of correct predictions made}           \\ 
+            & & \\ \hline
+            \multirow{2}{*}{Precision} &  \multirow{2}{*}{$\dfrac{TP}{TP+FP}$}    &  \multirow{2}{*}{Rate of positive predictions that were infact positive}           \\ 
+            & & \\ \hline
+            \multirow{2}{*}{Recall} &  \multirow{2}{*}{$\dfrac{TP}{FN+TP}$}    &  \multirow{2}{*}{Proportion of correctly classified positive cases }           \\ 
+            & & \\ \hline
+            \multirow{2}{*}{Specifity} &  \multirow{2}{*}{$\dfrac{TN}{TN+FP}$}    &  \multirow{2}{*}{Number of correct negatice predictions}           \\ 
+            & & \\ \hline
+            \multirow{2}{*}{F1 Score} &  \multirow{2}{*}{$\dfrac{2\cdot Precision \cdot Recall}{Precision + Recall}$}    &  \multirow{2}{*}{Harmonic mean of precision \& recall}           \\ 
+            & & \\ \hline
+            \multicolumn{3}{|l|}{\textbf{Regression:}} \\ \hline
+            \multirow{3}{*}{Root Mean Squared Error} &  \multirow{3}{*}{$\sqrt{\dfrac{\sum^N_i=1(Predicted_i-Actual_i)^2}{N}}$}    &  \multirow{3}{*}{How well regression line fits data points}           \\ 
+            & & \\ 
+            & & \\ \hline
+            \multirow{3}{*}{R Squared} &  \multirow{3}{*}{$1 - \dfrac{MSE(model)}{MSE(baseline)}$}    &  \multirow{3}{*}{Compares model to basic mean value}           \\ 
+            & & \\
+            & & \\ \hline
+            \multirow{3}{*}{Adjusted R Squared} &  \multirow{3}{*}{$1-(1-R^2)\Bigg[\dfrac{n-1}{n-(k+1)}\Bigg]$}    &  \multirow{3}{*}{Adjusts to changing features}           \\ 
+            & & \\
+            & & \\ \hline
+        \end{tabular}
+    \end{table}
+\end{landscape}

@@ -36,8 +36,8 @@ The following mathematical framework, developed by researchers at Google, can be
 \bigskip
 In figure (\ref{eq:assumption}), the assumption is that $y_{bias}$ is the label which is closest to $y_{true}$ and achieves a measure of bias.
 In cases where data has been manually manipulated by human input, either consciously or subconsciously, this is deemed to be a reasonable assumption.
-The contiguity to $y_{true}$ is given by the KL-divergance, which is used to establish the notion of accurate labeling. 
-The Proposition in figure (\ref{eq:Proposition}) is derived from the KL-divergence. (For complete proof of proposition, see \cite{Jiang})
+The contiguity to $y_{true}$ is given by the KL-divergence, which is used to establish the notion of accurate labelling. 
+The proposition in figure (\ref{eq:Proposition}) is derived from the KL-divergence. (For complete proof of proposition, see \cite{Jiang})
 \enlargethispage{-2\baselineskip}
 % \begin{figure}[h]
 %     \includegraphics[scale =0.8]{Prop.png}
@@ -90,9 +90,10 @@ Now that $y_{bias}$ is represented in terms of $y_{true}$, we can infer $y_{true
 
 \section*{Datashift}
 There may be situations where performance issues may not be apparent during training stages. 
-They instead appear post-deployment where training and deployment datasets can have irregularities. 
+They instead appear post-deployment, where training and deployment datasets can have irregularities. 
 This is known as Environmental Datashift \cite{saria2019tutorial}. 
-This calls into question whether the ML model is robust enough to generalise well to new samples beyond training, or whether it tends to over-generalise to the training dataset thus resulting in unreliability in the real world.
+This calls into question whether the ML model is robust enough to generalise well to new samples beyond training or whether it tends to over-generalise to the training dataset,
+thus resulting in unreliability in the real world.
 
 In \cite{shift}, datashift has been mathematically modelled in two scenarios as follows:
 
@@ -113,9 +114,9 @@ The second scenario is when there is access to the new biased labels,
 in cases where deployment environment data is collected to validate the bias model at $t = 1$.
 There are two viable causes for shift, true distribution changes and bias model changes.
 
-True distribution changes are alike to the first scenario where distribution, $\mathcal{D}_{t=1} \neq \mathcal{D}_{t=0}$.
-In bias model changes, the true distribution labels may be the same but label shift has occured as a result of changing $\mathcal{G}$.
-This also means probability, $p_A$ and/or $p_B$ could have also changed resulting in concept shift.
+True distribution changes are similar to the first scenario where distribution, $\mathcal{D}_{t=1} \neq \mathcal{D}_{t=0}$.
+In bias model changes, the true distribution labels may be the same but label shift has occurred as a result of changing $\mathcal{G}$.
+This also means probability, $p_A$ and/or $p_B$ could have also changed, resulting in concept shift.
 
 
 \section{Dataset \& Preprocessing}
@@ -166,9 +167,9 @@ where positive classification of device failure occurs when the time remaining t
 \end{table}
 
 The complete dataset was then split 70-30\% for training and testing respectively. 
-In addition, the train dataset was split into two further datasets, DF1 and DF2. 
-DF1 contained all data from devices with 'Gadget ID' 1,2 and 3 while DF2 contained all data from devices with 'Gadget ID' 3,4 and 5.
-Concsequently, the test dataset was also split into 'Sample 1' and 'Sample 2' in the same manner as DF1 and DF2.
+In addition, the training dataset was split into two further datasets, DF1 and DF2. 
+DF1 contained all data from devices with 'Gadget ID' 1,2 and 3, while DF2 contained all data from devices with 'Gadget ID' 3,4 and 5.
+Consequently, the test dataset was also split into 'Sample 1' and 'Sample 2' in the same manner as DF1 and DF2.
 
 \begin{table}[H]
     \begin{center}
@@ -193,7 +194,7 @@ Concsequently, the test dataset was also split into 'Sample 1' and 'Sample 2' in
 It has previously been assumed that bias occurs when one type of sample is over represented over another/others.
 By training a model with DF1 or DF2 dataset instead of the Full Train dataset, samples of certain devices have been completely overlooked and hence bias exists within DF1 and DF2. 
 Using Table (\ref{table:Bias}), we can compare the metrics of Full Train, DF1 and DF2 sets when tested against the Full Test set.
-Although DF1 improves amongst most metrics of the Full Test, we observe a deacrease in performance in the model trained with DF2.
+Although DF1 improves amongst most metrics of the Full Test, we observe a decrease in performance in the model trained with DF2.
 The increase in metrics of DF1 may suggest higher importance of those samples over DF2 but it is difficult to be certain due to the small dataset size (under 1000 samples).
 
 % \enlargethispage{5\baselineskip}
@@ -224,12 +225,12 @@ In the case of Environmental Datashift,\textit{
 is representative of the target population or environment where
 the model will be deployed" - \cite{saria2019tutorial}}
 We take a scenario where a model is trained on dataset DF1.
-Remembering DF1 and Sample 1 datasets are only concerned with samples from Gadgets 1, 2 \& 3, it is expected that this combination will offer the highest results.
+Remembering that DF1 and Sample 1 datasets are only concerned with samples from Gadgets 1, 2 \& 3, it is expected that this combination will offer the highest results.
 Experimental results in Table (\ref{table:Bias}) and the plots in Figures (\ref{fig:DF1}) \& (\ref{fig:DF2}) back this claim. 
 Moving further, testing the model with Full Test yields the next best results as it contains a mix of already seen and completely new samples.   
 Performance is affected severely when the model is tested using DF2 as the samples have irregularities when compared to training data.
-The same observations can be made when training the model on DF2 dataset.
-This model is not robust enough to generalise to new samples and solutions are offered in subsequent sections. 
+The same observations can be made when training the model on the DF2 dataset.
+This model is not robust enough to generalise to new samples, and solutions are offered in subsequent sections. 
 
 \begin{figure}[H]
     \includegraphics[scale =0.75]{Bias_DF1.png}
@@ -253,9 +254,9 @@ Research performed in \cite{Jiang}, offers solutions to deal with biased dataset
 The following datasets were used in this experiment:
 \begin{itemize}
     \item Bank Marketing - Prediction of subscription to bank product using age as the protected attribute
-    \item Communities \& Crime - Determine wheter a community has a high crime rate. Four race features are used as protected attributes
+    \item Communities \& Crime - Determine whether a community has a high crime rate. Four race features are used as protected attributes
     \item ProPublicas COMPAS - Predict recidivism based on a number of factors. Protected attributes are two race based and two gender biased
-    \item German Statlog Credit Data - Predict good or bad credit rating. Two protected groups seperated by age.
+    \item German Statlog Credit Data - Predict good or bad credit rating. Two protected groups separated by age.
     \item Adult Income - Predict if individual income is greater than \$50k. Two protected groups based on gender and another two groups based on race.
 \end{itemize}
 
@@ -270,21 +271,21 @@ The following datasets were used in this experiment:
     \label{table:fairness}
 \end{table}
 
-As can be viewed in Table \ref{table:Bias} all models were trained initially without any attempt to solve the bias problem (Unc.).
-Following on, Post-processing, Lagrangian Approach and a newly proposed method were applied and tested for fairness violation.
+As shown in Table (\ref{table:Bias}, all models were trained initially without any attempt to solve the bias problem (Unc.).
+Following on, Post-processing, Lagrangian Approach and a newly proposed method was applied and tested for fairness violation.
 It is observed that implementation of all approaches increases fairness as the violation decreases when compared to Uncalibrated results.
 
 \bigskip
 A study carried out by Samsung Research \cite{8953715} performs experimentation on data bias and environmental datashift with Deep Neural Networks in a similar fashion to our own experiment in the previous section.
 
 Bias was deliberately produced within three different datasets in this study investigate the algorithm's ability to unlearn bias. 
-We are only concerned with the Dogs and Cats dataset and IMDB Face datasets.
-The Dogs and Cats dataset consisted of 25,000 images which was then divided between TB1 and TB2 according to the colour of dogs/cats to produce bias as desired.
-This method of segregation ensures any sample in TB2 will not be found in TB1 and vice-versa.
-The Test dataset consisted 12,500 images. 
+We are only concerned with the Dogs and Cats dataset, and IMDB Face datasets.
+The Dogs and Cats dataset consisted of 25,000 images which were then divided between TB1 and TB2 according to the colour of dogs/cats to produce bias as desired.
+This method of segregation ensures that any sample in TB2 will not be found in TB1 and vice-versa.
+The Test dataset consisted of 12,500 images. 
 
 The IMDB Face dataset was also segregated in a similar manner.
-The Test set accounted for 20\% of the entire dataset and the remaining was used for training.
+The Test set accounted for 20\% of the entire dataset, and the remaining was used for training.
 EB1 and EB2 datasets were formed based on age and gender of actors. There was no common data samples between any of these datasets.
 
 \begin{table}[H]
@@ -309,8 +310,8 @@ EB1 and EB2 datasets were formed based on age and gender of actors. There was no
 
 By observing results presented in Tables (\ref{table:Dogs and Cats} \& \ref{table:IMDB}), the effects of environmental datashift become apparent.
 When trained on TB1/EB1, networks tested on the full Test sets always perform better as the network is unable to generalise well enough to TB2/EB2.
-However, the experiment also proves thats methods can be implemented to claw back some of the lost performance. 
-Examining the Dogs and Cats dataset, the baseline result shows approximately 20\% reduction in performance on networks tested on TB1/2 when compared to the Test set.
+However, the experiment also proves that methods can be implemented to claw back some lost performance. 
+Examining the Dogs and Cats dataset, the baseline result shows approximately a 20\% reduction in performance on networks tested on TB1/2 when compared to the Test set.
 All evaluated methods are able to improve the percentage difference between biased datasets and the Test set. 
 The best method is able to bring the percentage difference down to approximately 5\%.
 
@@ -318,29 +319,29 @@ The best method is able to bring the percentage difference down to approximately
 \section{Recommendations}
 \subsection{Pre-processing} 
 When it comes to creating ML models for fair and unbiased predictions, the first area of investigation should be the data.
-In \cite{saria2019tutorial} and accompanying material, the issue of inadequate data is presented where the limited availability of data on minor subsets creates negative bias towards that sub-population.
-Issues of this nature arise when when the model is tested on the broader dataset where the resulting performance is rated highly and performance on individual subsets is not evaluated.
-Therefore, it is important to measure performance on all sub-populations to determine and understand the true performance of the ML model.
+In \cite{saria2019tutorial} and accompanying material, the issue of inadequate data is presented where the limited availability of data on minor subsets creates a negative bias towards that sub-population.
+Issues of this nature arise when the model is tested on the broader dataset where the resulting performance is rated highly, and performance on individual subsets is not evaluated.
+Therefore, it is vital to measure performance on all sub-populations to determine and understand the true performance of the ML model.
 
-Another method to diagnose and identify reliability concerns if the sub-pupulations of interest are initially unknown 
+Another method to diagnose and identify reliability concerns if the sub-populations of interest are initially unknown 
 would be to cluster the input space into regions of high and low density.
-In low density regions, we would then need to investigate the regions to identify any correlation with attributes of concern or importance.
+In low-density regions, we would then need to investigate the regions to identify any correlation with attributes of concern or importance.
 
-In cases where the performance in any one of the sub-populations is not up to standard, the simple remedy to this issue would be to collect or use data which better represents sub-pupulations of interest.
-This could be the use of more data, or use of more quality data in general.
+In cases where the performance in any one of the sub-populations is not up to standard, the simple remedy to this issue would be collecting or using data that better represents sub-populations of interest.
+This could be the use of more data or the use of more quality data in general.
 Another solution is to try and modify the objective function to balance out the sub-populations. 
-Therefore, the underperforming data is given a higher weight and/or decrease the wight of data which is overrepresented. 
+Therefore, the underperforming data is given a higher weight and/or decrease in the weight of data overrepresented.. 
 
-When developing ML models which are invariant and are able to generalise well to shifts in data, 'reactive' solutions are predominantly offered.
+When developing ML models that are invariant and can generalise well to shifts in data, ’reactive’ solutions are predominantly offered. 
 This involves optimising the model for its intended environment by using unlabeled data samples from the target distribution.
 This optimisation is usually carried out by implementing various techniques such as reweighting in order to adapt to the new deployment environment.
-However, reactive methods are only useful when the actual environment data is available for investigation. 
+However, reactive methods are only valuable when the actual environment data is available for investigation. 
 
-In situations were we cannot anticipate this change in environment, proactive solutions are preferred.
+In situations where we cannot anticipate this change in the environment, proactive solutions are preferred.
 Proactive solutions teach the model to protect from likely problematic shifts by forecasting possible shifts.
-In \cite{subbaswamy2019preventing}, a framework is presented to teach predicitive models to 'transport' or adapt to dataset shift.
+In \cite{subbaswamy2019preventing}, a framework is presented to teach predictive models to 'transport' or adapt to dataset shift.
 This framework uses directed acyclic graphs (DAGs) to represent how data shifts from unstable to stable environments in the data generation process (DGP).
-Here $X$ are the inputs, and $T$ is prediction. The result, $T$ given $X$ is stable (doesn't change over time).
+Here $X$ denotes the inputs, and $T$ is prediction. The result, $T$ given $X$ is stable (doesn't change over time).
 The selection variable, $S$ indicates what is likely to change. The use of DAGs assists in the identification of shifts which need to be protected against.
 
 \begin{figure}[H]
@@ -350,17 +351,17 @@ The selection variable, $S$ indicates what is likely to change. The use of DAGs 
     \label{fig:DAG}
 \end{figure}
 
-Once these invariant features have been identified, they can be fed through the 'surgey estimator' algorithm from \cite{subbaswamy2019preventing}.
+Once these invariant features have been identified, they can be fed through the 'surgery estimator' algorithm from \cite{subbaswamy2019preventing}.
 The algorithm will then output the parts of the graph that should be learned and the parts which should be ideally ignored.
-The parts that shouldn't be learned contain unstable relations which will ultimately lead to the inability to generalise.
+The parts that should not be learned contain unstable relations. which will ultimately lead to the inability to generalise.
 
 \subsection{Post-processing}
 There may be scenarios where pre-processing approaches may be inapplicable or have been exhausted without successfully removing unwanted bias.
-Post-processing approaches are generally 'black-box' which signifies that it does not need access to the training process or any other internal hence making them suitable in run-time settings.
+Post-processing approaches are generally 'black-box' which signifies that it does not need access to the training process or any other internal,  making them suitable in run-time settings.
 
-While many post-processing methods are available, IBM Research has proposed a post-processing method which aims to increase group and individual fairness \cite{lohia2018bias}.
-Group fairness is defined as the equal measure of segregation of the total population into groups such as gender or race. 
-Individual fairness is the notion of individuals being treated fairly and is more difficult in terms of computation.
+While many post-processing methods are available, IBM Research has proposed a post-processing method that aims to increase group and individual fairness \cite{lohia2018bias}.
+\textit{Group fairness} is defined as the equal measure of segregation of the total population into groups such as gender or race. 
+Individual fairness is the notion of individuals being treated fairly and is more demanding in terms of computation.
 
 The method involves training an individual bias detector, $\hat{b}$, using dataset, \\ 
 $\{(x_1,\beta_1), ..., (x_m,\beta_m)\}$ once the classifier $\hat{y}$ has been trained.

@@ -18,12 +18,12 @@ A good, reliable model can achieve high accuracy (among other metrics) scores wi
 Therefore, both of these trained models will then be fed previously unseen data (i.e. deployment data) to determine its ability to generalise.
 
 \section{Suitable Algorithm Selection}
-As can be seen in Figure 2.1, when it comes to AI and ML, the appropriacy of solutions or algorithms depends on elements such as the specific application and the level of supervision required. 
+As shown in Figure (2.1), when it comes to AI and ML, the appropriacy of solutions or algorithms depends on elements such as the specific application and the level of supervision required. 
 More often than not, more than one algorithm could be a viable solution (see \hyperref[fig:algor]{Figure 2.2}). 
 Therefore, to investigate suitable algorithm selections, models will be trained with a single dataset using different algorithms (with different assumptions). 
-They will then be tested for accuracy to determine suitable algorithm choices. Evaluating the reliability of a model is dependant of the model type. 
+They will then be tested for accuracy to determine suitable algorithm choices. Evaluating the reliability of a model is dependant on the model type. 
 Accuracy, precision and recall are three common metrics we can use to evaluate a model. 
-However, depending on certain applications, other complex means of metric evaluation may be necessary. 
+However, depending on particular applications, other complex means of metric evaluation may be necessary. 
 
 \begin{figure}[h]
     \centering
@@ -33,11 +33,11 @@ However, depending on certain applications, other complex means of metric evalua
 \end{figure}
 
 The bias-variance trade-off should be considered when optimising ML models. 
-Bias is the model’s ability to learn the wrong things due to oversimplification or incorrect assumptions. 
+Bias is the $\text{model}'\text{s}$ ability to learn the wrong things due to oversimplification or incorrect assumptions. 
 Variance is the error due to sensitivity as a result of small fluctuations in training data. 
-As the complexity of the model increases, bias decreases but the variance will increase. 
+As the complexity of the model increases, bias decreases but, the variance will increase. 
 This is the trade-off between these two factors. 
-An overfit model is one that is too complex resulting in high variance and low bias, while an underfit model has low variance and high bias due to its simplistic nature. 
+An overfit model is one that is too complex, resulting in high variance and low bias, while an underfit model has low variance and high bias due to its simplistic nature. 
 Both overfit and underfit models are undesirable and it is ideal to find a suitable trade-off between bias and variance (hence complexity) to yield a well fit model capable of adapting to different datasets \cite{Jedamski}. 
 
 \begin{figure}[H]
@@ -54,7 +54,7 @@ To ensure validity during the training of models, the data distribution will be 
 The training set is used to train the models to fit the data and are evaluated against the validations set. 
 The validation set being unseen, allows us to determine which models are generalising well to new examples. 
 After the best model has been selected it is again tested on the test dataset as a final check on its generalisation ability. 
-The training set accounts for 60\% of the full data set, while the validation and test sets account for 20\% each. 
+The training set accounts for 60\% of the complete data set, while the validation and test sets account for 20\% respecitvely. 
 
 \section{Reward Hacking}
 The two unreliability factors discussed in the above experiments are concerned mainly with supervised learning models. 

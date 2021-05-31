@@ -3,18 +3,19 @@
 \chapter{Suitable Algorithm Selection}
 \label{chap:chap4}
 Unreliable Machine Learning models can be the result of inadequate model assumptions where inappropriate or unsuitable algorithm/s have been used.
-The appropriacy of an algorithm is dependant on multiple factors. One such factor is the level of supervision required, which in turn is dependant on the amount and type of data available.
-Another key factor is the use case of the model and its intended outcomes. Generally model parameters are curated for specific applications and will differ to other use cases.
+The appropriacy of an algorithm is dependant on multiple factors. 
+One such factor is the level of supervision required, which depends on the amount and type of data available.
+Another critical factor is the use case of the model and its intended outcomes. Generally, model parameters are curated for specific applications and will differ from other use cases.
 Therefore, it is important to make use of inductive bias\cite{saria2019tutorial} through suitable algorithm selection when developing reliable models.
 
-In this chapter we will first train a number of models using different supervised learning algorithms before comparing respectives evaulation metrics. 
-Afterwards, research will be performed on algorithm selection for other use cases before finally reccomendations are presented.
+In this chapter we will first train a number of models using different supervised learning algorithms before comparing respective evaluation metrics. 
+Afterwards, research will be performed on algorithm selection for other use cases before final recommendations are presented.
 
 \section{Dataset \& Preprocessing}
-The predictive maintenance dataset will be used again to classify failures of an ioT gadget.
+The predictive maintenance dataset will be used again to classify failures of an IoT gadget.
 During one week, maintenance data was collected from six devices every hour for 168 hrs.
 Therefore, this data set contains 1008 rows of data. 
-Each cycle of data reading contains the following measurements: 
+% Each cycle of data reading contains the following measurements: 
 
 % \begin{table}[H]
 %     \begin{center}
@@ -39,16 +40,16 @@ Each cycle of data reading contains the following measurements:
 % Device failure is to be classified when the time remaining to device failure is less than one hour.
 
 This dataset has been split into two datasets for training and testing respectively.
-The training dataset will compromise of all data collected from gadget IDs 1-4, leaving data from gadgets 5 and 6 for the test set.
-This will ensure the trained models are tested on completely new data. For more information on the dataset and use case, please see \cite{ahonen}.
+The training dataset will compromise of all the data collected from gadget IDs 1-4, leaving data from gadgets 5 and 6 for the test set.
+This will ensure that the trained models are tested on completely new data. For more information on the dataset and use case, please see \cite{ahonen}.
 
 \section{Algorithms}
-The following section shortlists and describes algorithms which can be used to train a supervised model. 
+The following section shortlists and describes algorithms that can be used to train a supervised model. 
 Also discussed are the factors affecting the performance and reliability of these algorithms.
 
 \subsection{Support Vector Machines}
 Support Vector Machines (SVM) is a common supervised machine learning algorithm for both classification and regression tasks.
-A key attribute of SVMs is its high accuracy and precision in thge segregation of classes.
+A key attribute of SVMs is its high accuracy and precision in the segregation of classes.
 SVMs create $n$-dimensional hyperplanes to segregate datapoints into $n$ number of classes/groups. 
 The algorithm aims to achieve the maximum margin between support vectors (closest points), i.e. maximise the minimum margin.
 
@@ -98,14 +99,14 @@ The performance of SVMs can be further improved by implementing kernel methods. 
 A linear kernel will be used in this experiment.
 
 \subsection{k-Nearest Neighbours}
-k-Nearst Neighbours (k-NN) is a simple supervised machine learning algorithm used in both classification and regression problems. 
-This approach classifies objects based on the compuatational distances or similarities between samples/values.
+k-Nearest Neighbours (k-NN) is a simple supervised machine learning algorithm used in both classification and regression problems. 
+This approach classifies objects based on the computational distances or similarities between samples/values.
 The k-NN algorithm only requires tuning of a single parameter, $k$, which represents the amount of nearest samples within the neighbourhood \cite{d163fd27cc414d1a806b3e2db0164bfc}.
-The choice of $k$ will affect the algorithm's performance where a value too small would create higher variance hence resulting in less stability.
+The choice of $k$ will affect the algorithm's performance where a value too small would create higher variance, resulting in less stability.
 A larger $k$ value will produce higher bias resulting in lower precision. 
 
 After the number of neighbours, $k$, has been selected, the distances between the query data point, $x_q$, and an arbitrary data point, $x_i$ are to be determined.
-Most commonly used is the Euclidean distance (\ref{Euclidean}), however Manhattan distance (\ref{Manhattan}) may also be applied \cite{knn}.
+Most commonly used is the Euclidean distance (\ref{Euclidean}), however, Manhattan distance (\ref{Manhattan}) may also be applied \cite{knn}.
 
 \begin{equation} \label{Euclidean}
     d(x_q,x_i) = \sqrt{\sum_{i=1}^{m} (x_q - x_i)^2}
@@ -114,14 +115,14 @@ Most commonly used is the Euclidean distance (\ref{Euclidean}), however Manhatta
     d(x_q,x_i) = \sum_{i=1}^{m} \lvert x_r - x_i \rvert
 \end{equation}
 
-The resulting values are then sorted by distance from smallest to largest and the first $k$ entries are selected. 
+The resulting values are then sorted by distance from smallest to largest, and the first $k$ entries are selected. 
 In classification problems, the mode of $k$ labels is returned, while the mean of $k$ labels is returned in regression problems.
-The choice of parameter $k$ can impact the models reliability. Too small a value for $k$ will result in higher variance while a value too high will increase bias. 
-This can be problematic when used on noisy datasets. Cross validation can be used to determine the correct $k$ value.
+The choice of parameter $k$ can impact the model's reliability. Too small a value for $k$ will result in higher variance, while a value too high will increase bias. 
+This can be problematic when used on noisy datasets. Cross-validation can be used to determine the correct $k$ value.
 
 \subsection{Random Forest}
 \label{sec:rand}
-Random Forest is an ensemble machine learning method which creates multiple random decision trees and combines their respective votes (classification) or averages (regression) to improve prediction accuracy and fitting \cite{rf}.
+Random Forest is an ensemble machine learning method that creates multiple random decision trees and combines their respective votes (classification) or averages (regression) to improve prediction accuracy and fitting \cite{rf}.
 
 % \enlargethispage{3\baselineskip}
 % \begin{figure}[h]
@@ -132,13 +133,13 @@ Random Forest is an ensemble machine learning method which creates multiple rand
 % \end{figure}
 
 This algorithm is able to perform very well on huge datasets with thousands of variables. 
-It is able to achieve high accuracy scores without overfitting or the need of data pruning \cite{8074494}.
+Moreover, it is able to achieve high accuracy scores without overfitting or the need for data pruning \cite{8074494}.
 The rate of error experienced in random forests can come down to a number of factors.
-One such factor is the interelationshiip between any two trees within the forest. 
-If the interelationship between two trees begins to increase, so will the error.
-Therefore, this algorithm is able to perform better in high dimensional trees as complxity increases.
+One such factor is the interrelationship between any two trees within the forest. 
+If the interrelationship between two trees begins to increase, so will the error.
+Therefore, this algorithm is able to perform better in high dimensional trees as complexity increases.
  
-For extensive information on the inner workings on Random Forests, see \cite{10.5555/2503308.2343682}
+For extensive information on the inner workings of Random Forests, see \cite{10.5555/2503308.2343682}.
 A brief algorithmic overview of random forests \cite{rf} is shown below:
 
 \begin{algorithm}[H]
@@ -171,16 +172,16 @@ A brief algorithmic overview of random forests \cite{rf} is shown below:
 
 \subsection{Neural Networks}
 Neural Networks are a part of Deep Learning which in turn is a subset of Machine Learning.
-The network is made up layers of neurons.
-The first layer, the input layer, recieves input and the final layer, output layer, makes the prediction based on the computations taken place within the hidden layers.
+The network is made up of layers of neurons.
+The first layer, the input layer, receives input and the final layer, output layer, makes the prediction based on the computations taken place within the hidden layers.
 Neurons in adjacent layers are connected via channels and are assigned a numerical weight and threshold.
-If the output of any particular neuron exceeds the threshold value, that neuron is activated and data is sent to the following layer within the network.
-Predictions are made based on the neuron with highest value/probability at the output layer. 
-Neurwal networks are self-adaptive through forward and backward propogation using real data
+If the output of any particular neuron exceeds the threshold value, that neuron is activated, and data is sent to the following layer within the network.
+Predictions are made based on the neuron with the highest value/probability at the output layer. 
+Neural networks are self-adaptive through forward and backward propagation using real data
 
-When it comes to reliability it is important to consider the amount of hidden layers and the amount of neurons within.
-Too few hidden layers would represent a linear problem, while additional layers create complexity hence becoming non linear \cite{4618341}.
-Too few neurones would result in underfitting while too many neurons would not only cause overfitting but also significantly increase the training time.
+When it comes to reliability, it is essential to consider the amount of hidden layers and the amount of neurons within.
+Too few hidden layers would represent a linear problem, while additional layers create complexity hence becoming non-linear \cite{4618341}.
+Thus, too few neurons would result in underfitting while too many neurons would not only cause overfitting but also significantly increase the training time.
 
 \begin{figure}[h]
     \includegraphics[scale=0.6]{neuralnetwork.png}
@@ -277,25 +278,27 @@ The results are depicted in Figures (\ref{fig:Metric plot}, \ref{fig:AUC}), and 
 \end{table}
 
 In Table \ref{table:Metrics}, highlighted are the most optimal comparison scores between tested algorithms.
-The ensemble method, Random Forests, is evidently the most suited method to this predictive maintenace application.
+The ensemble method, Random Forests, is evidently the most suited method to this predictive maintenance application.
 Linear Regression delivered the highest accuracy meaning it was able to make correct predictions the best. 
 However, it did not perform well in the other metrics. 
 This highlights that algorithm evaluation cannot be determined based on accuracy alone and is supported by the study \cite{8320256}.
 
 To ensure reliability and robustness, the goals of the use case should be considered and may contradict performance metrics.
 In this scenario, a True Positive (TP) case where the predicted failures are actual failures should take precedence as this is the money saving factor. 
-A False Negative (FN) case occurs when the model predicts a non-failure but in reality a failure has occured. This would result in large financial penalties for the company due to downtime.
-Therefore, the highest amount of TP cases and lowest amount of FN cases are desired.
+On the other hand, a False Negative (FN) case occurs when the model predicts a non-failure, but in reality, a failure has occurred. 
+This would result in considerable financial penalties for the company due to downtime.
+Therefore, the highest amount of TP cases and the lowest amount of FN cases are desired.
 
 \section{Further Research}
 
-A seperate study compares existing resgression based machine learning algorithms on a similar but more complex predictive maintenance application,
+A separate study compares existing regression based machine learning algorithms on a similar but more complex predictive maintenance application,
 \textit{'Prediction of Remaining Useful Lifetime (RUL) of Turbofan Engine using Machine Learning'} \cite{RUL}.
 
 During this study, models were trained on a dataset obtained by NASA's data repository, where turbofan jet engines are run until failure.
-During operation 21 sensor measurements are recorded against a time series per engine. Training and evaluation occurs on four datasets, each containing data from 100-250 engines. 
+During operation, 21 sensor measurements are recorded against a time series per engine. 
+Training and evaluation occur on four datasets, each containing data from 100-250 engines. 
 This dataset is much more complex than the one used in the previous experiments,
-hence it is expected to see much more variance in accuracy of the tested algorithms. 
+hence it is expected to see much more variance in the accuracy of the tested algorithms. 
 
 
 \enlargethispage{-5\baselineskip}
@@ -333,19 +336,19 @@ Like the Random Forest method, Gradien Boosting, AdaBoost, and Anova are also en
     \label{fig:RMSE Plots}
 \end{figure}
 
-Table \ref{table:RMSE} and Figure \ref{fig:RMSE Plots} displays the RMSE values of all tested algorithms across all four datasets.
-As can clearly be seen, the complexity of this problem results in fluctuation of evaluation scores unlike our previous classification experiment.
+Table (\ref{table:RMSE}) and Figure (\ref{fig:RMSE Plots}) displays the RMSE values of all tested algorithms across all four datasets.
+As can be seen, the complexity of this problem results in fluctuation of evaluation scores, unlike our previous classification experiment.
 RMSE is a measure of the concentration of data around the line of best fit. Therefore, an algorithm with the lowest RMSE value is desired.
 In this application, the random Forest algorithm produced the lowest error value.
 
-When comparing these results to those of our previous classification experiement, it is clear that enseble methods perform the best, specifically, Random Forest. 
-It should also be noted that SVM outperformed knn in the classification experiement but performed worse in the RUL regression study.
+When comparing these results to those of our previous classification experiment, it is clear that ensemble methods perform the best, specifically, Random Forest. 
+It should also be noted that SVM outperformed knn in the classification experiment but performed worse in the RUL regression study.
 
 \bigskip
-It is also important consider other applications of AI/ML to better understand reliability of potential algorithms.
-Hence, moving away from predictive maintenance, \cite{8300383} is a study of supervised learning techniques for classification of different internal PD (partial discharge) patterns from a generator.
+It is also important to consider other applications of AI/ML to better understand reliability of potential algorithms.
+Hence, moving away from predictive maintenance, \cite{8300383} is a study of supervised learning techniques for the classification of different internal PD (partial discharge) patterns from a generator.
 Analysis was conducted by considering 96 features for each PD pattern.
-A total of 9 algorithms under four learning were tested where wach was tested for accuracy, ROC, precision and recall.
+A total of 9 algorithms under four learning were tested where each was tested for accuracy, ROC, precision and recall.
 
 \begin{itemize}
     \item Functional Based Techniques
@@ -392,20 +395,20 @@ Assumptions and/or expectations made in one use case most likely will not hold t
 Therefore, assumptions should be refined for every use case.
 A simple example provided in \cite{saria2019tutorial}, involved the illogical use of a linear model on a complex (non-linear) problem.
 
-To aid in development of ML models, it is advised to research specific use case scenarios to find suitable algorithms through proven research into performance and reliability factors.
-In \cite{pdm_review}, comprehensive research and review has been performed on machine learning methods within predictive maintenace applications.
-Advantages of various algorithms have been identified in certain applications through experimentation. 
+To aid in the development of ML models, it is advised to research specific use case scenarios to find suitable algorithms through proven research into performance and reliability factors.
+In \cite{pdm_review}, comprehensive research and review has been performed on machine learning methods within predictive maintenance applications.
+The advantages of various algorithms have been identified in specific applications through experimentation. 
 Therefore it would be beneficial to research for proven methodologies in any specific use case.  
 
 In \cite{10.1016/j.eswa.2017.04.003}, extensive comparisons are carried out over various studies on a range of classification applications and algorithms.
 Additionally, the study in, \cite{7724478}, provides advantages and disadvantages of some supervised learning techniques and suggests appropriate use cases for each algorithm.
 
 \subsection{Ensemble Methods}
-Ensemble methods are algorithms which combine multiple ML techniques to find the optimal predictive model in supervised and unsupervised ML problems.
+\textit{Ensemble methods} are algorithms that combine multiple ML techniques to find the optimal predictive model in supervised and unsupervised ML problems.
 Generally, they perform much better than single algorithms yielding higher accuracy and reliability.
-The most popopular techniques used are bagging for reduction in variance, boosting for reduction in bias, and stacking to improve quality of predictions.
-Comparisons between various ensemble techniques have been studied in, \cite{7340924}, \cite{8389056} and \cite{1358033}.
-As alluded in Section (\ref{sec:rand}), Random Forests is an example of a bagging method. AdaBoost, as the name suggests, is a popular boosting algorithm.
+The most popular techniques used are bagging for reduction in variance, boosting for reduction in bias, and stacking to improve the quality of predictions.
+Comparisons between various ensemble techniques have been studied in \cite{7340924}, \cite{8389056} and \cite{1358033}.
+As alluded to in Section (\ref{sec:rand}), Random Forests is an example of a bagging method. AdaBoost, as the name suggests, is a popular boosting algorithm.
 
 \subsection{Hyperparamater Tuning}
 Another recommendation for improved reliability is hyperparameter tuning/optimisation.
@@ -452,10 +455,10 @@ Briefly described below are two algorithms, Bayesian Optimisation \cite{7900023}
 \end{algorithm}
 
 \subsection{Evaluation Metrics}
-It is also important to select appropriate evaluation metrics based on the model type and application.
+It is also essential to select appropriate evaluation metrics based on the model type and application.
 As observed in our earlier experiment in section (\ref{table:Metrics}), accuracy alone cannot be used to evaluate a model's reliability and performance.
 Accuracy is the fraction value of correct predictions made but does not indicate the relationships between other attributes of the model \cite{8320256}.
-A Confusion Matrix is an N x N matrix specifying True Positives (TP), True Negatives (TN), False Positive (FP) and False Negative (FN) instances within the model.
+A \textit{Confusion Matrix} is an N x N matrix specifying True Positives (TP), True Negatives (TN), False Positive (FP) and False Negative (FN) instances within the model.
 Other metrics can be derived using the confusion matrix \cite{8320256}.
 Depending on the specific use case, a weight or cost can be assigned to each output of the confusion matrix to indicate importance.
 Table (\ref{table:Evaluation Metrics}) below is a non-exhaustive list of some common evaluation metrics for supervised learning models.

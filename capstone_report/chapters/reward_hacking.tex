@@ -9,10 +9,11 @@ The agent is then able to iterate through another cycle by performing another ac
 \begin{figure}[H]
     \centering
     \caption{Reinforcement Learning and the Environment \cite{amiri_mehrpouyan_fridman_mallik_nallanathan_matolak_2018}}
-    \includegraphics[scale=0.5]{RL.png}
+    \includegraphics[scale=0.55]{RL.png}
     \label{fig:RL}
 \end{figure}
 
+\enlargethispage{-2\baselineskip}
 The Markov Decision Processes (MDP) can be used to represent an RL framework in terms of time steps.
 MDP is represented as a tuple, $(S, a, P, R, \gamma)$ where:
 \begin{itemize}
@@ -43,8 +44,10 @@ RL approaches can also be applied to predictive maintenance applications to redu
 As discussed earlier in Section (4.4), regressional models (as well as deep learning) are able to accurately make predictions on RUL for example. 
 Nonetheless, such methods are unable to provide meaningful information or observations to aid the decision making process of maintenance operations due to complexities or unknowns in the environment \cite{9221098}.
 
+% \enlargethispage{\baselineskip}
 An example of this RL scenario \cite{9221098}, where the objective function was to maximise the sensor lifetime.
 The reward function (\ref{eq:reward fucntion}) was defined as such to manage the agent's actions:
+
 \begin{equation}
     \label{eq:reward fucntion}
     R_t = \begin{cases}
@@ -209,7 +212,7 @@ The modification of utility functions for Ignorant and Realistic value functions
     \caption{Self-modification value functions \cite{EverittFDH16}}
     \begin{figure}[H]
         \centering
-        \includegraphics[scale=0.8]{lookahead_table.png}
+        \includegraphics[scale=0.9]{lookahead_table.png}
     \end{figure}
     \label{table:val_func_table}
 \end{table}

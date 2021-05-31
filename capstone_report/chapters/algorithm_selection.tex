@@ -54,7 +54,7 @@ SVMs create $n$-dimensional hyperplanes to segregate datapoints into $n$ number 
 The algorithm aims to achieve the maximum margin between support vectors (closest points), i.e. maximise the minimum margin.
 
 \begin{figure}[h]
-    \includegraphics[scale=0.5]{Support-vector-machine-SVM-model-c-2019-IEEE-28.png}
+    \includegraphics[scale=0.55]{Support-vector-machine-SVM-model-c-2019-IEEE-28.png}
     \centering
     \caption{Support Vector Machine \cite{svm-pic}}
     \label{fig:SVM}
@@ -257,7 +257,13 @@ The results are depicted in Figures (\ref{fig:Metric plot}, \ref{fig:AUC}), and 
     \end{tabular}
 \end{table}
 
-\begin{table}[h]    
+In Table \ref{table:Metrics}, highlighted are the most optimal comparison scores between tested algorithms.
+The ensemble method, Random Forests, is evidently the most suited method to this predictive maintenance application.
+Linear Regression delivered the highest accuracy meaning it was able to make correct predictions the best. 
+However, it did not perform well in the other metrics. 
+This highlights that algorithm evaluation cannot be determined based on accuracy alone and is supported by the study \cite{8320256}.
+
+\begin{table}[H]    
     \centering
     \caption{PDM Confusion Matrix}
     \label{table:Conf}
@@ -277,11 +283,6 @@ The results are depicted in Figures (\ref{fig:Metric plot}, \ref{fig:AUC}), and 
     \end{tabular}
 \end{table}
 
-In Table \ref{table:Metrics}, highlighted are the most optimal comparison scores between tested algorithms.
-The ensemble method, Random Forests, is evidently the most suited method to this predictive maintenance application.
-Linear Regression delivered the highest accuracy meaning it was able to make correct predictions the best. 
-However, it did not perform well in the other metrics. 
-This highlights that algorithm evaluation cannot be determined based on accuracy alone and is supported by the study \cite{8320256}.
 
 To ensure reliability and robustness, the goals of the use case should be considered and may contradict performance metrics.
 In this scenario, a True Positive (TP) case where the predicted failures are actual failures should take precedence as this is the money saving factor. 
@@ -301,7 +302,7 @@ This dataset is much more complex than the one used in the previous experiments,
 hence it is expected to see much more variance in the accuracy of the tested algorithms. 
 
 
-\enlargethispage{-5\baselineskip}
+\enlargethispage{-1\baselineskip}
 Listed below are machine learning algorithms used to predict RUL in this study:
 \begin{itemize}
     \item Linear Regression
@@ -348,7 +349,7 @@ It should also be noted that SVM outperformed knn in the classification experime
 It is also important to consider other applications of AI/ML to better understand reliability of potential algorithms.
 Hence, moving away from predictive maintenance, \cite{8300383} is a study of supervised learning techniques for the classification of different internal PD (partial discharge) patterns from a generator.
 Analysis was conducted by considering 96 features for each PD pattern.
-A total of 9 algorithms under four learning were tested where each was tested for accuracy, ROC, precision and recall.
+A total of 9 algorithms under four learning were tested (shown below) where each was tested for accuracy, ROC, precision and recall.
 
 \begin{itemize}
     \item Functional Based Techniques

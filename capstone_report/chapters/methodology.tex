@@ -1,5 +1,6 @@
 \chapter{Methodology}
-This project has been divided into three main sections based on the factors of unreliability mentioned earlier in \hyperref[chap:chap1]{Section 1}. 
+\label{chap:chap2}
+This project has been divided into three main sections based on the factors of unreliability mentioned earlier in \hyperref[chap:chap1]{Chapter 1}. 
 The main factors studied in this project are:
 \begin{itemize}
     \item Label Bias and Environmental Datashift
@@ -8,13 +9,13 @@ The main factors studied in this project are:
 \end{itemize}
 
 \section{Label Bias and Environmental Datashift}
-To investigate the effect of biased data labelling we will train two models using a single independent algorithm. 
+To investigate the effect of biased data labelling, we will train two models using a single independent algorithm. 
 One will use biased data while the other uses unbiased data. 
 These datasets will be modelled using the mathematical framework outlined in the conference paper \textit{‘Identifying and Correcting Label Bias in Machine Learning’} \cite{Jiang}. 
-Each model will be trained and evaluated using data which has been split from the same distribution. 
-For a model to be considered reliable it must be able to properly generalise or adapt well to new and unseen data. 
-A good, reliable model can achieve high accuracy scores with low variance between datasets. 
-Therefore, both of these trained models will then be fed previously unseen data (i.e. deployment data) to determine its ability to generalize.
+Each model will be trained and evaluated using data that has been split from the same distribution. 
+For a model to be considered reliable, it must be able to properly generalise or adapt well to new and unseen data. 
+A good, reliable model can achieve high accuracy (among other metrics) scores with low variance between datasets. 
+Therefore, both of these trained models will then be fed previously unseen data (i.e. deployment data) to determine its ability to generalise.
 
 \section{Suitable Algorithm Selection}
 As can be seen in Figure 2.1, when it comes to AI and ML, the appropriacy of solutions or algorithms depends on elements such as the specific application and the level of supervision required. 

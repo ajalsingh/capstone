@@ -12,7 +12,7 @@ and harmful behaviour is observed, and consequently are
 scrutinized as disruptive and unreliable solutions. The 
 recent emergence in smart cities have seen AI and ML being 
 used in various applications such as transportation, 
-healthcare, environmental, and public safety as depicted in Figure 1.1.
+healthcare, environmental, and public safety as depicted in Figure (\ref{fig:smart}).
 
 \begin{figure}[h]
     \includegraphics{smart_city_applications.png}
@@ -37,9 +37,9 @@ wrongful arrests of dark-skinned people \cite{Moutafis}. This example highlights
 importance and the need for reliability in ML solutions. 
 
 There are many more applications where reliability is crucial due to the 
-potential consequences. Cancer diagnosis systems trialled in the US are 
-failing to detect cancer in patients in differing hospitals and/or countries which may result 
-in death. As another example, unintended behaviours in traffic management systems would 
+potential consequences. For example, cancer diagnosis systems trialled in the US fail to detect 
+cancer in patients in differing hospitals and/or countries, resulting in death.
+ As another example, unintended behaviours in traffic management systems would 
 increase congestion resulting in poor ambient air quality and noise 
 pollution.
 
@@ -49,10 +49,10 @@ in Industry 4.0 applications involving Artificial Intelligence, connected
  summarises the advantages ML, \textit{“AI with machine learning technique can 
  automate the manufacturing process which increase the productivity, 
  efficiency, optimize production cost and reduce manual error” }\cite{9004327}. A 
- key area is predictive maintenance where real-time equipment data is 
+ key area is predictive maintenance, where real-time equipment data is 
  captured and historical equipment data is evaluated using AI and ML 
  models to estimate the equipment life cycle and hence perform timely 
- maintenance to reduce or eliminate down-time. Down-time is undesirable
+ maintenance to reduce or eliminate down-time. Downtime is undesirable
 for manufacturers as it equates to the loss of revenue.
 
 AI in cybersecurity helps protect enterprises by detecting unusual 
@@ -63,16 +63,21 @@ activity and fraud \cite{9004327}.
 
 \section{Project Contextualisation}
 A tutorial presented by Suchi Saria and Adarsh Subbaswamy of John Hopkins University \cite{saria2019tutorial} postulates some causes and failure prevention techniques for use in supervised learning systems (regression and classification). 
-Some of the sources of unreliability discussed in this tutorial are the use of inadequate data, changes in training and deployment environments, and model misspecification. 
-These aforementioned causes will form the basis of this research project.
+Some of the sources of unreliability discussed in this tutorial are inadequate data, changes in training and deployment environments, and model misspecification. 
+These causes mentioned above will form the basis of this research project.
 
 \enlargethispage{-\baselineskip}
-Another reliability issue is discussed in a separate paper, \textit{‘Concrete Problems in AI Safety’} \cite{Amodei} is the prevalence of reward hacking in Reinforcement Learning systems. 
-Reward hacking is defined as the AI agent’s ability to cheat the system to achieve the highest reward in an unintended way. 
-For example, a positive reward may be given to a traffic management system when there is no congestion. However, the AI model decides to divert all traffic through alternative routes essentially shutting down this particular road/intersection. 
+Another reliability issue is discussed in a separate paper, \textit{‘Concrete Problems in AI Safety’} \cite{Amodei}, is the prevalence of reward hacking in Reinforcement Learning systems. 
+\textit{Reward hacking} is defined as the AI agent’s ability to cheat the system to achieve the highest reward in an unintended way. 
+For example, a positive reward may be given to a traffic management system when there is no congestion. However, the AI model decides to divert all traffic through alternative routes, essentially shutting down this particular road/intersection. 
 This prevents congestion but does not perform as desired. This notion is also investigated in this research project.
 
-\hl{reword and briefly discuss each chapter}
+In Chapter \ref{chap:chap2,} we outline the methodologies used throughout this report.
+Chapter \ref{chap:chap3} discusses how bias arises in datasets through labelling and datashift.
+Experimentation is performed to show that bias exists before solutions for reducing bias are described.
+Chapter \ref{chap:chap4} examines the factors which impact algorithm selection on a number of Artificial Intelligence applications.
+Subsequently, methods to improve the reliability and performance of algorithms are discussed.
+Afterwards, in Chapter \ref{chap:chap5}, the causes and prevention approaches of reward hacking in RL systems are discussed.
 
 \section{Research Question}
 \noindent\rule{\linewidth}{0.4pt}
